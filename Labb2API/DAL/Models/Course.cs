@@ -1,17 +1,9 @@
-﻿namespace Labb2API.DAL.Models
+﻿using Labb2API.DAL.Enums;
+
+namespace Labb2API.DAL.Models
 {
     public record Course
     {
-        public enum CourseStatus
-        {
-            Active, Inactive
-        }
-
-        public enum CourseDifficulty
-        {
-            Beginner, Intermediate, Advanced
-        }
-
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
