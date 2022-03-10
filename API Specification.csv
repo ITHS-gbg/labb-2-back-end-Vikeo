@@ -10,3 +10,4 @@ ENDPOINT,HTTP Method,Request Body,Response Body,Query params,Response Codes,Desc
 ../users/{userEmail},POST,User object,,,"Ok, Bad Request, Conflict",Creates a users.
 ../users/{userEmail},PATCH,,User Object(?),"userEmail, userFirstname, userLastname, userPhone, userAdress","Ok, Not Found, Conflict",Replaces all data in a existing user object with new data.
 ../users/{userEmail},GET,,One User Object,,"Ok, Not Found",Gets a users.
+../users/activeCourses/{userEmail},PATCH,,User Object,"course","Ok, Not Found, Conflict",Add/Remove courses.
