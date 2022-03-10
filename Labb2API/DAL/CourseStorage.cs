@@ -16,10 +16,8 @@ namespace Labb2API.DAL
 
         public bool CreateCourse(Course course)
         {
-            if (_courses.Values.Contains(course))
-            {
-                return false;
-            }
+            if (_courses.Values.Contains(course)) return false;
+
             _courses.Add(_id++, course);
             return true;
         }
@@ -31,20 +29,14 @@ namespace Labb2API.DAL
 
         public Course GetCourse(int id)
         {
-            if (!_courses.Keys.Contains(id))
-            {
-                return null;
-            }
+            if (!_courses.Keys.Contains(id)) return null;
 
             return _courses[id];
         }
 
         public bool UpdateCourse(int id, Course course)
         {
-            if (!_courses.Keys.Contains(id))
-            {
-                return false;
-            }
+            if (!_courses.Keys.Contains(id)) return false;
 
             _courses[id] = course;
             return true;
@@ -53,10 +45,7 @@ namespace Labb2API.DAL
         public bool UpdateCourseStatus(int id, int status)
         {
             if (status > Enum.GetValues(typeof(CourseStatus)).Cast<int>().Max() ||
-                status < Enum.GetValues(typeof(CourseStatus)).Cast<int>().Min())
-            {
-                return false;
-            }
+                status < Enum.GetValues(typeof(CourseStatus)).Cast<int>().Min()) return false;
 
             _courses[id].Status = (CourseStatus)status;
 
@@ -65,28 +54,19 @@ namespace Labb2API.DAL
 
         public bool UpdateCourseDifficulty(int id, int difficulty)
         {
-            if (!_courses.Keys.Contains(id))
-            {
-                return false;
-            }
+            if (!_courses.Keys.Contains(id)) return false;
 
             if (difficulty > Enum.GetValues(typeof(CourseDifficulty)).Cast<int>().Max() ||
-                difficulty < Enum.GetValues(typeof(CourseDifficulty)).Cast<int>().Min())
-            {
-                return false;
-            }
+                difficulty < Enum.GetValues(typeof(CourseDifficulty)).Cast<int>().Min()) return false;
 
             _courses[id].Difficulty = (CourseDifficulty)difficulty;
 
             return true;
         }
 
-        public bool DeleteUser(int id)
+        public bool DeleteCourse(int id)
         {
-            if (!_courses.Keys.Contains(id))
-            {
-                return false;
-            }
+            if (!_courses.Keys.Contains(id)) return false;
 
             _courses.Remove(id);
             return true;
