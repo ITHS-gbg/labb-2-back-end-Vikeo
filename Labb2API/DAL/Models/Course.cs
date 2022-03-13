@@ -1,9 +1,11 @@
-﻿using Labb2API.DAL.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Labb2API.DAL.Enums;
 
 namespace Labb2API.DAL.Models
 {
     public record Course
     {
+        [Key]
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

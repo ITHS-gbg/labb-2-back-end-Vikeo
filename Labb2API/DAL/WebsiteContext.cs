@@ -8,8 +8,8 @@ public class WebsiteContext : DbContext
 {
     public DbSet<Course> Courses { get; set; }
     public DbSet<User> Users { get; set; }
-    //Junction table?
-    public DbSet<Dictionary<int, string>> UsersCourses { get; set; }
+    ////Junction table?
+    //public DbSet<UserCourse> UsersCourses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
