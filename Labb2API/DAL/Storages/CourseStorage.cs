@@ -1,7 +1,7 @@
 ﻿using Labb2API.DAL.Enums;
 using Labb2API.DAL.Models;
 
-namespace Labb2API.DAL
+namespace Labb2API.DAL.Storages
 {
     public class CourseStorage
     {

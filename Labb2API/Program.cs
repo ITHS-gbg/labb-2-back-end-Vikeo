@@ -1,5 +1,6 @@
 using Labb2API.DAL;
 using Labb2API.DAL.Models;
+using Labb2API.DAL.Storages;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
