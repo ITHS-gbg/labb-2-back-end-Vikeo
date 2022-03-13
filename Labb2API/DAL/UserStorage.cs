@@ -46,12 +46,32 @@ public class UserStorage
     }
 
     //TODO Gör Add/Delete metoder istället för denna.
-    public bool UpdateActiveCourses(string email, List<Course> courses)
+    //public bool UpdateActiveCourses(string email, List<Course> courses)
+    //{
+    //    if (courses.Count <= 0) return false;
+
+    //    _users[email].ActiveCourses = courses;
+
+    //    return true;
+    //}
+
+    public bool AddActiveCourse(User user, Course course)
     {
-        if (courses.Count <= 0) return false;
+        if (user.ActiveCourses.Contains(course))
+        {
+            return false;
+        }
+        user.ActiveCourses.Add(course);
+        return true;
+    }
 
-        _users[email].ActiveCourses = courses;
-
+    public bool RemoveActiveCourse(User user, Course course)
+    {
+        if (!user.ActiveCourses.Contains(course))
+        {
+            return false;
+        }
+        user.ActiveCourses.Remove(course);
         return true;
     }
 

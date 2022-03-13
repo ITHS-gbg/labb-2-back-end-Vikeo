@@ -16,7 +16,12 @@ namespace Labb2API.DAL
 
         public bool CreateCourse(Course course)
         {
+            //TODO Kolla value eller key?
             if (_courses.Values.Contains(course)) return false;
+
+            //TODO Fråga Niklas om det är för fult?
+            _id = _courses.Keys.Max() + 1;
+            course.Id = _id;
 
             _courses.Add(_id++, course);
             return true;
@@ -27,7 +32,7 @@ namespace Labb2API.DAL
             return _courses.Values;
         }
 
-        public Course GetCourse(int id)
+        public Course? GetCourse(int id)
         {
             if (!_courses.Keys.Contains(id)) return null;
 
@@ -37,29 +42,30 @@ namespace Labb2API.DAL
         public bool UpdateCourse(int id, Course course)
         {
             if (!_courses.Keys.Contains(id)) return false;
-
+            course.Id = id;
             _courses[id] = course;
             return true;
         }
 
-        public bool UpdateCourseStatus(int id, int status)
+        public bool UpdateCourseStatus(Course course, int status)
         {
             if (status > Enum.GetValues(typeof(CourseStatus)).Cast<int>().Max() ||
                 status < Enum.GetValues(typeof(CourseStatus)).Cast<int>().Min()) return false;
 
-            _courses[id].Status = (CourseStatus)status;
+            course.Status = (CourseStatus)status;
 
             return true;
         }
 
-        public bool UpdateCourseDifficulty(int id, int difficulty)
+        //TODO Ska jag ta in courseId eller Course????
+        public bool UpdateCourseDifficulty(Course course, int difficulty)
         {
-            if (!_courses.Keys.Contains(id)) return false;
+            if (!_courses.Values.Contains(course)) return false;
 
             if (difficulty > Enum.GetValues(typeof(CourseDifficulty)).Cast<int>().Max() ||
                 difficulty < Enum.GetValues(typeof(CourseDifficulty)).Cast<int>().Min()) return false;
 
-            _courses[id].Difficulty = (CourseDifficulty)difficulty;
+            course.Difficulty = (CourseDifficulty)difficulty;
 
             return true;
         }
