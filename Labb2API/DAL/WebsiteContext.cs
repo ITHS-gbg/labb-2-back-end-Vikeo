@@ -13,7 +13,7 @@ public class WebsiteContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-HMMNO25;Initial Catalog=Databases; Database=WebLabb2Db;Integrated Security=True;Pooling=False");
+        optionsBuilder.UseSqlServer(@"Data Source=Vikeo-DESKTOP;Initial Catalog=Databases; Database=WebLabb2Db;Integrated Security=True;Pooling=False");
     }
 
 }

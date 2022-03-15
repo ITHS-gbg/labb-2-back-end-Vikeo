@@ -13,7 +13,7 @@ namespace Labb2API.DAL.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public List<Course> ActiveCourses { get; set; }
+        public ICollection<Course> ActiveCourses { get; set; }
 
         public User(string firstName, string lastName, string email, string phone, string address)
         {
