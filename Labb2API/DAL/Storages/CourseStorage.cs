@@ -20,8 +20,16 @@ namespace Labb2API.DAL.Storages
             if (_courses.Values.Contains(course)) return false;
 
             //TODO Fråga Niklas om det är för fult?
+            if (_id == 0)
+            {
+                _id = 0;
+                course.Id = _id;
+                _courses.Add(_id++, course);
+                return true;
+            }
             _id = _courses.Keys.Max() + 1;
             course.Id = _id;
+
 
             _courses.Add(_id++, course);
             return true;

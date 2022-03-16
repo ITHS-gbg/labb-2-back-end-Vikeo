@@ -4,7 +4,6 @@ using Labb2API.DAL.Storages;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
-
 //Denna gör att [FromServices] funkar, man lägger till en instans av en UserStorage.
 builder.Services.AddSingleton<UserStorage>();
 builder.Services.AddSingleton<CourseStorage>();

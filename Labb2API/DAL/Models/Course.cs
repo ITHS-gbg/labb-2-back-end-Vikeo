@@ -12,6 +12,7 @@ namespace Labb2API.DAL.Models
         public int Duration { get; set; }
         public CourseDifficulty Difficulty { get; set; }
         public CourseStatus Status { get; set; }
+        public ICollection<User> Users { get; set; }
 
         public Course(string title, string description, int duration, CourseDifficulty difficulty, CourseStatus status)
         {
@@ -22,6 +23,7 @@ namespace Labb2API.DAL.Models
             Duration = duration;
             Difficulty = difficulty;
             Status = status;
+            Users = new List<User>();
         }
     }
 }

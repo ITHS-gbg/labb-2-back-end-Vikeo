@@ -80,7 +80,8 @@ namespace Labb2API.Controllers
 
         //POST, lägger till kurs till ActiveCourses
         [HttpPost("{email}, {courseId}")]
-        public IResult PostActiveCourse(string email, int courseId){
+        public IResult PostActiveCourse(string email, int courseId)
+        {
             var course = _courseStorage.GetCourse(courseId);
             var user = _userStorage.GetUser(email);
 

@@ -1859,23 +1859,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Vikeo\\.nuget\\packages\\": {},
+    "C:\\Users\\vikto\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vikeo\\Documents\\GitHub\\labb-2-back-end-Vikeo\\Labb2API\\Labb2API.csproj",
+      "projectUniqueName": "C:\\Users\\vikto\\Documents\\GitHub Local Desktop\\labb-2-back-end-Vikeo\\Labb2API\\Labb2API.csproj",
       "projectName": "Labb2API",
-      "projectPath": "C:\\Users\\Vikeo\\Documents\\GitHub\\labb-2-back-end-Vikeo\\Labb2API\\Labb2API.csproj",
-      "packagesPath": "C:\\Users\\Vikeo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vikeo\\Documents\\GitHub\\labb-2-back-end-Vikeo\\Labb2API\\obj\\",
+      "projectPath": "C:\\Users\\vikto\\Documents\\GitHub Local Desktop\\labb-2-back-end-Vikeo\\Labb2API\\Labb2API.csproj",
+      "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vikto\\Documents\\GitHub Local Desktop\\labb-2-back-end-Vikeo\\Labb2API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Vikeo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vikto\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1931,7 +1931,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

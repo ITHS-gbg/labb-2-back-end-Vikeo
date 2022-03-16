@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Labb2API"
   ],
-  "SelectedNode": "\\Labb2API.sln",
+  "SelectedNode": "\\Labb2API\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

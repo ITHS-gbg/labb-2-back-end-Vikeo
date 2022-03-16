@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labb2API.Controllers
 {
-    [Route("api/courses")]
+    [Route("controller/courses")]
     [ApiController]
     public class CourseController : ControllerBase
     {
         private readonly CourseStorage _courseStorage;
 
         public CourseController([FromServices] CourseStorage courseStorage)
-        { 
+        {
             _courseStorage = courseStorage;
         }
 
@@ -80,10 +80,10 @@ namespace Labb2API.Controllers
             return Results.Conflict("Det finns redan an kurs med samma ID som det nya.");
         }
 
-        /*
-        //TODO PATCH, uppdatera status på en course
+
+        //PATCH, uppdatera status på en course
         [HttpPatch("{courseId}")]
-        public IResult PatchCourseStatus([FromParams]CourseStatus status, int courseId)
+        public IResult PatchCourseStatus(int courseId, int status)
         {
             var course = _courseStorage.GetCourse(courseId);
             if (course is null)
@@ -93,12 +93,12 @@ namespace Labb2API.Controllers
 
             return _courseStorage.UpdateCourseStatus(course, status) ? Results.Ok() : Results.BadRequest();
         }
-        */
 
-        /*
+
+
         //TODO PATCH, uppdatera difficulty på en course
         [HttpPatch("{courseId}")]
-        public IResult PatchCourseDifficulty([From???] CourseDifficulty difficulty, int courseId)
+        public IResult PatchCourseDifficulty(int courseId, int difficulty)
         {
             var course = _courseStorage.GetCourse(courseId);
             if (course is null)
@@ -108,7 +108,7 @@ namespace Labb2API.Controllers
 
             return _courseStorage.UpdateCourseDifficulty(course, difficulty) ? Results.Ok() : Results.BadRequest();
         }
-        */
+
 
         //DELETE, ta bort en kurs från courses.
         [HttpDelete("{courseId}")]
