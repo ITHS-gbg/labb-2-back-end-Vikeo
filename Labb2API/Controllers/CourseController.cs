@@ -80,7 +80,6 @@ namespace Labb2API.Controllers
             return Results.Conflict("Det finns redan an kurs med samma ID som det nya.");
         }
 
-
         //PATCH, uppdatera status på en course
         [HttpPatch("{courseId}")]
         public IResult PatchCourseStatus(int courseId, int status)
@@ -93,8 +92,6 @@ namespace Labb2API.Controllers
 
             return _courseStorage.UpdateCourseStatus(course, status) ? Results.Ok() : Results.BadRequest();
         }
-
-
 
         //TODO PATCH, uppdatera difficulty på en course
         [HttpPatch("{courseId}")]
