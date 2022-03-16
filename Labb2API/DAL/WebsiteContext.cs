@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labb2API.DAL;
 
+//När jag ska skapa databasen, skriv "add-migration <namn på migrationen>", sen för att skapa "Update-database"
 public class WebsiteContext : DbContext
 {
     public DbSet<Course> Courses { get; set; }

@@ -35,7 +35,7 @@ public class UserStorage
         return null;
     }
 
-    //PUT? Ändrar hela användaren.
+    //PUT Ändrar hela användaren.
     public bool UpdateUser(User user)
     {
         if (!_users.Keys.Contains(user.Email)) return false;
@@ -75,7 +75,7 @@ public class UserStorage
         return true;
     }
 
-    public bool DeleteUser(User user)
+    public bool RemoveUser(User user)
     {
         if (!_users.Keys.Contains(user.Email)) return false;
 

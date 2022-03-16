@@ -27,7 +27,7 @@ namespace Labb2API.DAL.Storages
             return true;
         }
 
-        public ICollection<Course>? GetAllCourses()
+        public ICollection<Course> GetAllCourses()
         {
             return _courses.Values;
         }
