@@ -22,9 +22,9 @@ public class UserStorage
         return true;
     }
 
-    public ICollection<User>? GetAllUsers()
+    public List<User> GetAllUsers()
     {
-        return _users.Values;
+        return _users.Values.ToList();
     }
 
     //Kollar om det finns en user med en email, returnerar om den finns.
