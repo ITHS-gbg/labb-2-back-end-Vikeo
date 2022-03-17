@@ -5,6 +5,7 @@ namespace Labb2API.DAL.Models
 {
     public record User
     {
+        //TODO public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -23,6 +24,16 @@ namespace Labb2API.DAL.Models
             Phone = phone;
             Address = address;
             ActiveCourses = new List<Course>();
+        }
+
+        public User(string firstName, string lastName, string email, string phone, string address, List<Course> activeCourses)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Phone = phone;
+            Address = address;
+            ActiveCourses = ActiveCourses;
         }
     }
 }

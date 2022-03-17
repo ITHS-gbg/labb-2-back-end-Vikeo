@@ -1,6 +1,7 @@
-﻿using Labb2API.DAL.Enums;
+﻿using Labb2API.DAL;
+using Labb2API.DAL.Enums;
 using Labb2API.DAL.Models;
-using Labb2API.DAL.Storages;
+using Labb2API.DAL.Respositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,18 +11,19 @@ namespace Labb2API.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private readonly CourseStorage _courseStorage;
+        private readonly UnitOfWork _unitOfWork;
 
-        public CourseController([FromServices] CourseStorage courseStorage)
+        //TODO Behöver man [FromServices] här?
+        public CourseController(UnitOfWork unitOfWork)
         {
-            _courseStorage = courseStorage;
+            _unitOfWork = unitOfWork;
         }
 
         //GET, hämta alla courses.
         [HttpGet]
         public IResult GetAllCourses()
         {
-            var courses = _courseStorage.GetAllCourses();
+            var courses = _unitOfWork.CourseRepository.GetAllCourses();
 
             if (courses.Count <= 0)
             {
@@ -35,7 +37,7 @@ namespace Labb2API.Controllers
         [HttpGet("{courseId}")]
         public IResult GetOneCourse(int courseId)
         {
-            var course = _courseStorage.GetCourse(courseId);
+            var course = _unitOfWork.CourseRepository.GetCourse(courseId);
 
             if (course is null)
             {
@@ -55,12 +57,14 @@ namespace Labb2API.Controllers
                 return Results.BadRequest();
             }
 
-            if (_courseStorage.CreateCourse(course))
+            if (_unitOfWork.CourseRepository.CreateCourse(course))
             {
+                _unitOfWork.Save();
                 return Results.Ok();
             }
 
             return Results.Conflict();
+
         }
 
         [HttpGet("{courseId}")]
@@ -72,7 +76,7 @@ namespace Labb2API.Controllers
                 return Results.BadRequest();
             }
 
-            if (_courseStorage.UpdateCourse(courseId, course))
+            if (_unitOfWork.CourseRepository.UpdateCourse(courseId, course))
             {
                 return Results.Ok();
             }
@@ -84,26 +88,26 @@ namespace Labb2API.Controllers
         [HttpPatch("{courseId}")]
         public IResult PatchCourseStatus(int courseId, int status)
         {
-            var course = _courseStorage.GetCourse(courseId);
+            var course = _unitOfWork.CourseRepository.GetCourse(courseId);
             if (course is null)
             {
                 return Results.NotFound();
             }
 
-            return _courseStorage.UpdateCourseStatus(course, status) ? Results.Ok() : Results.BadRequest();
+            return _unitOfWork.CourseRepository.UpdateCourseStatus(course, status) ? Results.Ok() : Results.BadRequest();
         }
 
         //TODO PATCH, uppdatera difficulty på en course
         [HttpPatch("{courseId}")]
         public IResult PatchCourseDifficulty(int courseId, int difficulty)
         {
-            var course = _courseStorage.GetCourse(courseId);
+            var course = _unitOfWork.CourseRepository.GetCourse(courseId);
             if (course is null)
             {
                 return Results.NotFound();
             }
 
-            return _courseStorage.UpdateCourseDifficulty(course, difficulty) ? Results.Ok() : Results.BadRequest();
+            return _unitOfWork.CourseRepository.UpdateCourseDifficulty(course, difficulty) ? Results.Ok() : Results.BadRequest();
         }
 
 
@@ -111,7 +115,7 @@ namespace Labb2API.Controllers
         [HttpDelete("{courseId}")]
         public IResult DeleteCourse(int courseId)
         {
-            return _courseStorage.DeleteCourse(courseId) ? Results.Ok() : Results.NotFound();
+            return _unitOfWork.CourseRepository.DeleteCourse(courseId) ? Results.Ok() : Results.NotFound();
         }
     }
 }

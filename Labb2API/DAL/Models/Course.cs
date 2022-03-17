@@ -16,7 +16,7 @@ namespace Labb2API.DAL.Models
 
         public Course(string title, string description, int duration, CourseDifficulty difficulty, CourseStatus status)
         {
-            //TODO Id blir unikt, men det 
+            //TODO Id blir inte unikt vad bara detta.
             Id = Id++;
             Title = title;
             Description = description;
