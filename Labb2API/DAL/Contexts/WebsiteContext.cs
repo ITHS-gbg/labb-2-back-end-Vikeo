@@ -8,8 +8,7 @@ public class WebsiteContext : DbContext
 {
     public DbSet<Course> Courses { get; set; }
     public DbSet<User> Users { get; set; }
-    ////Junction table?
-    //public DbSet<UserCourse> UsersCourses { get; set; }
+    public DbSet<UserCourse> UserCourses { get; set; }
 
     public WebsiteContext(DbContextOptions options) : base(options)
     {

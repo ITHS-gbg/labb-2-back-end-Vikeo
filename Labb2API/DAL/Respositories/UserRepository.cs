@@ -55,7 +55,6 @@ public class UserRepository : IUserRepository, IDisposable
         if (existingUser is null)
         {
             return false;
-            
         }
 
         //existingUser.Email = user.Email;
@@ -63,6 +62,8 @@ public class UserRepository : IUserRepository, IDisposable
         existingUser.LastName = user.LastName;
         existingUser.Phone = user.Phone;
         existingUser.Address = user.Address;
+
+
 
         return true;
     }

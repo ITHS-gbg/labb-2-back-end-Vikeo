@@ -29,8 +29,21 @@ namespace Labb2API.DAL
                 {
                     _courseRepository = new CourseRepository(_websiteContext);
                 }
-
                 return _courseRepository;
+            }
+        }
+
+        private IUserCourseRepository _userCourseRepository;
+
+        public IUserCourseRepository UserCourseRepository
+        {
+            get
+            {
+                if (_userCourseRepository is null)
+                {
+                    _userCourseRepository = new UserCourseRepository(_websiteContext);
+                }
+                return _userCourseRepository;
             }
         }
 

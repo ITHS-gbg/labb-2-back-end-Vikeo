@@ -105,7 +105,7 @@ namespace Labb2API.Controllers
         }
 
         //DELETE, ta bort kurs från activecourse.
-        [HttpDelete("{email}, {courseId}")]
+        [HttpDelete("{email}/{courseId}")]
         public IResult DeleteActiveCourse(string email, int courseId)
         {
             var course = _unitOfWork.CourseRepository.GetCourse(courseId);
