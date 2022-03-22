@@ -4,6 +4,7 @@ namespace Labb2API.DAL.Respositories.Interfaces;
 
 public interface ICourseRepository
 {
+    //TODO Maybe make async
     bool CreateCourse(Course course);
     List<Course> GetAllCourses();
     Course? GetCourse(int id);

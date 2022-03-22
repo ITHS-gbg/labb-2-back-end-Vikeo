@@ -4,6 +4,7 @@ namespace Labb2API.DAL.Respositories.Interfaces;
 
 public interface IUserRepository
 {
+    //TODO Maybe make async
     bool CreateUser(User user);
     List<User> GetAllUsers();
     User? GetUser(string email);

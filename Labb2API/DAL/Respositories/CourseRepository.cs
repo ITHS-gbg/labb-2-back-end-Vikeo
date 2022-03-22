@@ -44,8 +44,6 @@ public class CourseRepository : ICourseRepository
 
         if (existingCourse.Id != id) return false;
 
-        if (existingCourse.Id != course.Id) return false;
-
         course.Id = id;
 
         existingCourse.Id = course.Id;
@@ -86,7 +84,7 @@ public class CourseRepository : ICourseRepository
     public bool DeleteCourse(int id)
     {
         var existingCourse = _websiteContext.Courses.FirstOrDefault(c => c.Id == id);
-
+        if (existingCourse == null) return false;
         if (existingCourse.Id != id) return false;
 
         _websiteContext.Courses.Remove(existingCourse);

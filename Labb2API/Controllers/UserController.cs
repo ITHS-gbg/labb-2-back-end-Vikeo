@@ -20,30 +20,30 @@ public class UserController : ControllerBase
 
     //GET, hämta alla users
     [HttpGet]
-    public IResult GetUsers()
+    public IActionResult GetUsers()
     {
         var users = _unitOfWork.UserRepository.GetAllUsers();
 
         if (users.Count <= 0)
         {
-            return Results.NotFound("cont");
+            return NotFound("cont");
         }
 
-        return Results.Ok(users);
+        return Ok(users);
     }
 
     //GET, hämta en user
     [HttpGet("{email}")]
-    public IResult GetOneUser(string email)
+    public IActionResult GetOneUser(string email)
     {
         var user = _unitOfWork.UserRepository.GetUser(email);
 
         if (user is null)
         {
-            return Results.NotFound();
+            return NotFound();
         }
 
-        return Results.Ok(user);
+        return Ok(user);
     }
 
     //POST, Skapa en user.
@@ -65,32 +65,32 @@ public class UserController : ControllerBase
 
     //PUT, ändra en users alla properites.
     [HttpPut("{email}")]
-    public IResult PutUser([FromBody] User user, string email)
+    public IActionResult PutUser([FromBody] User user, string email)
     {
         //TODO Tror att jag kolla om mailen stämmer eller inte 3 gånger.
         if (user.Email != email)
         {
-            return Results.BadRequest("Mailen i HTTP-requesten måste vara samma som mailen i body.");
+            return BadRequest("Mailen i HTTP-requesten måste vara samma som mailen i body.");
         }
 
         if (_unitOfWork.UserRepository.UpdateUser(user))
         {
             _unitOfWork.Save();
-            return Results.Ok();
+            return Ok();
         }
-        return Results.NotFound();
+        return NotFound();
     }
 
     //POST, lägger till kurs till ActiveCourses
     [HttpPost("{email}/{courseId}")]
-    public IResult PostActiveCourse(string email, int courseId)
+    public IActionResult PostActiveCourse(string email, int courseId)
     {
         var course = _unitOfWork.CourseRepository.GetCourse(courseId);
         var user = _unitOfWork.UserRepository.GetUser(email);
 
         if (course is null || user is null)
         {
-            return Results.NotFound();
+            return NotFound();
         }
 
         if (_unitOfWork.UserRepository.AddActiveCourse(user, course))
@@ -99,49 +99,49 @@ public class UserController : ControllerBase
 
             if (!canSave)
             {
-                return Results.Conflict("You can't be registered to one specific course multiple times");
+                return Conflict("You can't be registered to one specific course multiple times");
             }
 
-            return Results.Ok();
+            return Ok();
         }
 
-        return Results.Conflict();
+        return Conflict();
     }
 
     //DELETE, ta bort kurs från activecourse.
     [HttpDelete("{email}/{courseId}")]
-    public IResult DeleteActiveCourse(string email, int courseId)
+    public IActionResult DeleteActiveCourse(string email, int courseId)
     {
         var course = _unitOfWork.CourseRepository.GetCourse(courseId);
         var user = _unitOfWork.UserRepository.GetUser(email);
 
         if (course is null || user is null)
         {
-            return Results.NotFound();
+            return NotFound();
         }
 
         if (_unitOfWork.UserRepository.RemoveActiveCourse(user, course))
         {
             _unitOfWork.Save();
-            return Results.Ok();
+            return Ok();
         }
-        return Results.NotFound();
+        return NotFound();
     }
 
     //DELETE, ta bort en användare.
     [HttpDelete("{email}")]
-    public IResult DeleteUser(string email)
+    public IActionResult DeleteUser(string email)
     {
         var user = _unitOfWork.UserRepository.GetUser(email);
 
         if (user is null)
         {
-            return Results.NotFound(user);
+            return NotFound(user);
         }
 
         _unitOfWork.UserRepository.RemoveUser(user);
         _unitOfWork.Save();
-        return Results.Ok();
+        return Ok();
     }
 
     #endregion
