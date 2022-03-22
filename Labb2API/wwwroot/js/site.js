@@ -4,9 +4,6 @@
 // Write your JavaScript code.
 
 
-function GetUsers()
-{
-    console.log("Hejsan")
-}
+
 
 

@@ -1,0 +1,43 @@
+﻿@page
+@using System.Text.Json.Nodes
+@model UsersModel
+@{
+    ViewData["Title"] = "Users";
+    var fetchString = "/controller/users/";
+}
+
+<div class="text-center">
+    <button onclick="GetUsers();" class="btn btn-primary">Get Users</button>
+    <ul id="UserList"></ul>
+</div>
+
+<script>
+    class User {
+        constructor(firstName, lastName, email, phone, address, activeCourses) {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
+            this.Phone = phone;
+            this.Address = address;
+            this.ActiveCourses = activeCourses;
+        }
+    }
+
+    const users = [];
+
+//const GetUsers = () => {}; //detta laddar inte in koden i funktionen förren man anropar den.
+    const GetUsers = () => {
+        console.log("Hejsan");
+
+        fetch("@fetchString")
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                }
+            });
+    }
+</script>
