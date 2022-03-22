@@ -1,6 +1,6 @@
 ﻿using Labb2API.DAL.Models;
 
-namespace Labb2API.DAL.Respositories;
+namespace Labb2API.DAL.Respositories.Interfaces;
 
 public interface ICourseRepository : IDisposable
 {

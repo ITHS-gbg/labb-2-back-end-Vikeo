@@ -1,6 +1,7 @@
 ﻿using Labb2API.DAL.Contexts;
 using Labb2API.DAL.Enums;
 using Labb2API.DAL.Models;
+using Labb2API.DAL.Respositories.Interfaces;
 using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace Labb2API.DAL.Respositories

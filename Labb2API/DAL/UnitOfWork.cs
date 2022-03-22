@@ -1,5 +1,6 @@
 ﻿using Labb2API.DAL.Contexts;
 using Labb2API.DAL.Respositories;
+using Labb2API.DAL.Respositories.Interfaces;
 
 namespace Labb2API.DAL
 {

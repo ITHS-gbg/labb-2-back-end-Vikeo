@@ -1,5 +1,6 @@
 ﻿using Labb2API.DAL.Contexts;
 using Labb2API.DAL.Models;
+using Labb2API.DAL.Respositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
