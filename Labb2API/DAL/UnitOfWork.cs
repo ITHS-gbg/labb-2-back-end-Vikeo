@@ -34,28 +34,24 @@ namespace Labb2API.DAL
             }
         }
 
-        private IUserCourseRepository _userCourseRepository;
-
-        public IUserCourseRepository UserCourseRepository
-        {
-            get
-            {
-                if (_userCourseRepository is null)
-                {
-                    _userCourseRepository = new UserCourseRepository(_websiteContext);
-                }
-                return _userCourseRepository;
-            }
-        }
-
         public UnitOfWork(WebsiteContext websiteContext)
         {
             _websiteContext = websiteContext;
         }
 
-        public void Save()
+        public bool Save()
         {
-            _websiteContext.SaveChanges();
+            try 
+            {
+                _websiteContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+                //Console.WriteLine(e);
+                //throw;
+            }
+            return true;
         }
 
         public void Dispose()

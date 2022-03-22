@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb2API.Migrations
 {
     [DbContext(typeof(WebsiteContext))]
-    [Migration("20220320104853_Weblabb2DB")]
-    partial class Weblabb2DB
+    [Migration("20220322102725_testing")]
+    partial class testing
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,12 +63,7 @@ namespace Labb2API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserCourseId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserCourseId");
 
                     b.ToTable("Courses");
                 });
@@ -94,28 +89,9 @@ namespace Labb2API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserCourseId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Email");
 
-                    b.HasIndex("UserCourseId");
-
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Labb2API.DAL.Models.UserCourse", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserCourses");
                 });
 
             modelBuilder.Entity("CourseUser", b =>
@@ -131,27 +107,6 @@ namespace Labb2API.Migrations
                         .HasForeignKey("UsersEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Labb2API.DAL.Models.Course", b =>
-                {
-                    b.HasOne("Labb2API.DAL.Models.UserCourse", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("UserCourseId");
-                });
-
-            modelBuilder.Entity("Labb2API.DAL.Models.User", b =>
-                {
-                    b.HasOne("Labb2API.DAL.Models.UserCourse", null)
-                        .WithMany("Users")
-                        .HasForeignKey("UserCourseId");
-                });
-
-            modelBuilder.Entity("Labb2API.DAL.Models.UserCourse", b =>
-                {
-                    b.Navigation("Courses");
-
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

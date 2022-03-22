@@ -47,6 +47,7 @@ namespace Labb2API.DAL.Respositories
         public Course? GetCourse(int id)
         {
             var existingCourse = _websiteContext.Courses.FirstOrDefault(c => c.Id == id);
+            if (existingCourse == null) return null;
             if (existingCourse.Id != id) return null;
 
             return existingCourse;

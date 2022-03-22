@@ -4,22 +4,10 @@
 
 namespace Labb2API.Migrations
 {
-    public partial class Weblabb2DB : Migration
+    public partial class testing : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "UserCourses",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserCourses", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
@@ -30,17 +18,11 @@ namespace Labb2API.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Difficulty = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    UserCourseId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Courses_UserCourses_UserCourseId",
-                        column: x => x.UserCourseId,
-                        principalTable: "UserCourses",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -51,17 +33,11 @@ namespace Labb2API.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserCourseId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Email);
-                    table.ForeignKey(
-                        name: "FK_Users_UserCourses_UserCourseId",
-                        column: x => x.UserCourseId,
-                        principalTable: "UserCourses",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -89,19 +65,9 @@ namespace Labb2API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_UserCourseId",
-                table: "Courses",
-                column: "UserCourseId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CourseUser_UsersEmail",
                 table: "CourseUser",
                 column: "UsersEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_UserCourseId",
-                table: "Users",
-                column: "UserCourseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -114,9 +80,6 @@ namespace Labb2API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "UserCourses");
         }
     }
 }

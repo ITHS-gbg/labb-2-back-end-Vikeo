@@ -37,14 +37,17 @@ public class UserRepository : IUserRepository, IDisposable
 
     public List<User> GetAllUsers()
     {
-        return _websiteContext.Users.ToList();
+        return _websiteContext.Users.Include(u => u.ActiveCourses).ToList();
     }
 
     //Kollar om det finns en user med en email, returnerar om den finns.
+    //TODO Ska jag ha async lr not?
     public User? GetUser(string email)
     {
         //TODO ändra till en rad. Debug user.
-        var user = _websiteContext.Users.FirstOrDefault(u => u.Email == email);
+        //TODO Hur får jag till activecourses på users?
+        //TODO Include Course på denna också.
+        var user = _websiteContext.Users.Include(u => u.ActiveCourses).FirstOrDefault(u => u.Email == email);
         return user;
     }
 
@@ -63,8 +66,6 @@ public class UserRepository : IUserRepository, IDisposable
         existingUser.LastName = user.LastName;
         existingUser.Phone = user.Phone;
         existingUser.Address = user.Address;
-
-
 
         return true;
     }

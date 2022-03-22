@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using Labb2API.DAL.Enums;
 
 namespace Labb2API.DAL.Models
 {
-    public record Course
+    public record Course : ISerializable
     {
         [Key]
         public int Id { get; set; }
@@ -25,13 +26,19 @@ namespace Labb2API.DAL.Models
             Duration = duration;
             Difficulty = difficulty;
             Status = status;
-            Users = new List<User>();
+            Users = new HashSet<User>();
         }
 
         //Entity framework behöver denna när man ska hämta data från ActiveCourse.
         public Course()
         {
-            Users = new List<User>();
+            Users = new HashSet<User>();
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+
+            //TODO Fixa så att den tolkar int som enum. Detta sker innan serialisering
         }
     }
 }

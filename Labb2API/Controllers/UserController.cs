@@ -50,19 +50,19 @@ namespace Labb2API.Controllers
 
         //POST, Skapa en user.
         [HttpPost]
-        public IResult PostUser([FromBody] User user)
+        public async Task<IActionResult> PostUser([FromBody] User user)
         {
             if (string.IsNullOrEmpty(user.Email))
             {
-                return Results.BadRequest();
+                return BadRequest();
             }
 
             if (_unitOfWork.UserRepository.CreateUser(user))
             {
                 _unitOfWork.Save();
-                return Results.Ok();
+                return Ok();
             }
-            return Results.Conflict();
+            return Conflict();
         }
 
         //PUT, ändra en users alla properites.
@@ -97,7 +97,13 @@ namespace Labb2API.Controllers
 
             if (_unitOfWork.UserRepository.AddActiveCourse(user, course))
             {
-                _unitOfWork.Save();
+                bool canSave = _unitOfWork.Save();
+
+                if (!canSave)
+                {
+                    return Results.Conflict("You can't be registered to one specific course multiple times");
+                }
+                
                 return Results.Ok();
             }
 

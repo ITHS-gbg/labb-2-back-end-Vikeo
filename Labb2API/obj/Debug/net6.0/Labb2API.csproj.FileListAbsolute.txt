@@ -166,3 +166,8 @@ C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\obj
 C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\obj\Debug\net6.0\Labb2API.pdb
 C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\obj\Debug\net6.0\Labb2API.genruntimeconfig.cache
 C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\obj\Debug\net6.0\ref\Labb2API.dll
+C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\bin\Debug\net6.0\Labb2API.staticwebassets.runtime.json
+C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\obj\Debug\net6.0\Labb2API.RazorAssemblyInfo.cache
+C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\obj\Debug\net6.0\Labb2API.RazorAssemblyInfo.cs
+C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\obj\Debug\net6.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\obj\Debug\net6.0\scopedcss\projectbundle\Labb2API.bundle.scp.css
