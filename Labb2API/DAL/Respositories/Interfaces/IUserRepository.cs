@@ -2,7 +2,7 @@
 
 namespace Labb2API.DAL.Respositories.Interfaces;
 
-public interface IUserRepository : IDisposable
+public interface IUserRepository
 {
     bool CreateUser(User user);
     List<User> GetAllUsers();

@@ -1,32 +1,26 @@
 ﻿using Labb2API.DAL.Contexts;
 using Labb2API.DAL.Models;
 using Labb2API.DAL.Respositories.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Labb2API.DAL.Respositories;
 
-public class UserRepository : IUserRepository, IDisposable
+public class UserRepository : IUserRepository
 {
 
     private readonly WebsiteContext _websiteContext;
-    private readonly IDictionary<string, User> _users;
-
-    //private int _id;
 
     public UserRepository(WebsiteContext websiteContext)
     {
-        _users = new Dictionary<string, User>();
         _websiteContext = websiteContext;
     }
 
     public bool CreateUser(User user)
     {
-        //TODO Alltid falskt
+        //TODO Always false
         if (user is null) return false;
 
-        //TODO Använder en sån här variablen på massa andra ställen, kanske bör göra det här också?
-        //var existingUser = _websiteContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        //Makes it so that two users can't have the same email.
         if (GetAllUsers().Exists(u => u.Email == user.Email))
         {
             return false;
@@ -40,7 +34,6 @@ public class UserRepository : IUserRepository, IDisposable
         return _websiteContext.Users.Include(u => u.ActiveCourses).ToList();
     }
 
-    //Kollar om det finns en user med en email, returnerar om den finns.
     //TODO Ska jag ha async lr not?
     public User? GetUser(string email)
     {
@@ -51,7 +44,8 @@ public class UserRepository : IUserRepository, IDisposable
         return user;
     }
 
-    //PUT Ändrar hela användaren.
+    //PUT Replace the properties of a user.
+    //TODO Is it PUT if you don't replace the whole user?
     public bool UpdateUser(User user)
     {
         var existingUser = _websiteContext.Users.FirstOrDefault(u => u.Email == user.Email);
@@ -61,6 +55,7 @@ public class UserRepository : IUserRepository, IDisposable
             return false;
         }
 
+        //TODO Can't change email right now, don't know how I want to implement it.
         //existingUser.Email = user.Email;
         existingUser.FirstName = user.FirstName;
         existingUser.LastName = user.LastName;
@@ -69,16 +64,6 @@ public class UserRepository : IUserRepository, IDisposable
 
         return true;
     }
-
-    //TODO Gör Add/Delete metoder istället för denna.
-    //public bool UpdateActiveCourses(string email, List<Course> courses)
-    //{
-    //    if (courses.Count <= 0) return false;
-
-    //    _users[email].ActiveCourses = courses;
-
-    //    return true;
-    //}
 
     public bool AddActiveCourse(User user, Course course)
     {
@@ -120,24 +105,14 @@ public class UserRepository : IUserRepository, IDisposable
 
     public bool RemoveUser(User user)
     {
-        //TODO Använder en sån här variablen på massa andra ställen, kanske bör göra det här också?
-        //var existingUser = _websiteContext.Users.FirstOrDefault(u => u.Email == user.Email);
+
         if (!_websiteContext.Users.ToList().Exists(u => u.Email == user.Email))
         {
             return false;
         }
 
-        //if (!_users.Keys.Contains(user.Email)) return false;
-
         _websiteContext.Users.Remove(user);
 
         return true;
-    }
-
-    public void Dispose()
-    {
-        //TODO Ska man ens ha dispose?
-        _websiteContext.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Labb2API.DAL.Respositories.Interfaces;
 
-public interface ICourseRepository : IDisposable
+public interface ICourseRepository
 {
     bool CreateCourse(Course course);
     List<Course> GetAllCourses();

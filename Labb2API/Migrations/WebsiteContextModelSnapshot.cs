@@ -26,12 +26,12 @@ namespace Labb2API.Migrations
                     b.Property<int>("ActiveCoursesId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UsersEmail")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
 
-                    b.HasKey("ActiveCoursesId", "UsersEmail");
+                    b.HasKey("ActiveCoursesId", "UsersId");
 
-                    b.HasIndex("UsersEmail");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("CourseUser");
                 });
@@ -68,10 +68,17 @@ namespace Labb2API.Migrations
 
             modelBuilder.Entity("Labb2API.DAL.Models.User", b =>
                 {
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -87,7 +94,7 @@ namespace Labb2API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Email");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
@@ -102,7 +109,7 @@ namespace Labb2API.Migrations
 
                     b.HasOne("Labb2API.DAL.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("UsersEmail")
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
