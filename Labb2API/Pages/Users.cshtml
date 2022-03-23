@@ -8,26 +8,40 @@
 
 <div class="text-center">
     <button onclick="GetUsers();" class="btn btn-primary">Get Users</button>
-    <ul id="UserList"></ul>
+    <table id="UserTable" class="align-items-center align-content-center align-self-center">
+
+    </table>
+    
+    <table id="UserActiveCourseTable" class="align-items-center align-content-center align-self-center">
+        <tr>
+        </tr>
+    </table>
 </div>
 
 <script>
-    class User {
-        constructor(firstName, lastName, email, phone, address, activeCourses) {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
-            this.Phone = phone;
-            this.Address = address;
-            this.ActiveCourses = activeCourses;
-        }
-    }
-
-    const users = [];
-
+    
 //const GetUsers = () => {}; //detta laddar inte in koden i funktionen förren man anropar den.
     const GetUsers = () => {
-        console.log("Hejsan");
+        const userTable = document.getElementById("UserTable");
+        userTable.innerHTML = `<tr>
+                                   <th>First Name</th>
+                                   <th>Last Name</th>
+                                   <th>Email</th>
+                                   <th>Phone</th>
+                                   <th>Address</th>
+                                   <th>activeCourses</th>
+                               </tr>`;
+        const courseTable = document.getElementById("UserActiveCourseTable");
+        courseTable.innerHTML = `<tr>
+                                     <th>Id</th>
+                                     <th>Title</th>
+                                     <th>Description</th>
+                                     <th>Duration</th>
+                                     <th>Difficulty</th>
+                                     <th>Status</th>
+                                 </tr>`;
+
+        const users = [];
 
         fetch("@fetchString")
             .then(response => {
@@ -36,8 +50,74 @@
             .then(data => {
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
-                    console.log(data[i]);
+                    const user = new User(
+                        data[i].firstName, 
+                        data[i].lastName, 
+                        data[i].email, 
+                        data[i].phone, 
+                        data[i].address, 
+                        data[i].activeCourses);
+                    users.push(user);
                 }
+                //TODO Få in det här i funktionen som använder data. Detta är redundant.
+                users.forEach((user) => {
+                    const userTr = document.createElement("tr");
+
+                    const userFirstNameTd = document.createElement("td");
+                    const userLastNameTd = document.createElement("td");
+                    const userEmailTd = document.createElement("td");
+                    const userPhoneTd = document.createElement("td");
+                    const userAddressTd = document.createElement("td");
+
+                    userFirstNameTd.innerText = user.FirstName;
+                    userLastNameTd.innerText = user.LastName;
+                    userEmailTd.innerText = user.Email;
+                    userPhoneTd.innerText = user.Phone;
+                    userAddressTd.innerText = user.Address;
+
+                    userTr.appendChild(userFirstNameTd);
+                    userTr.appendChild(userLastNameTd);
+                    userTr.appendChild(userEmailTd);
+                    userTr.appendChild(userPhoneTd);
+                    userTr.appendChild(userAddressTd);
+
+                    
+                    
+
+                    const userActiveCoursesTd = document.createElement("td");
+                    user.ActiveCourses.forEach((course) => {
+                        const courseTr = document.createElement("tr");
+                        const courseIdTd = document.createElement("td");
+                        const courseTitleTd = document.createElement("td");
+                        const courseDescriptionTd = document.createElement("td");
+                        const courseDurationTd = document.createElement("td");
+                        const courseDifficultyTd = document.createElement("td");
+                        const courseStatusTd = document.createElement("td");
+
+                        courseIdTd.innerText = course.id;
+                        courseTitleTd.innerText = course.title;
+                        courseDescriptionTd.innerText = course.description;
+                        courseDurationTd.innerText = course.duration;
+                        courseDifficultyTd.innerText = course.difficulty;
+                        courseStatusTd.innerText = course.status;
+
+                        courseTr.appendChild(courseIdTd);
+                        courseTr.appendChild(courseTitleTd);
+                        courseTr.appendChild(courseDescriptionTd);
+                        courseTr.appendChild(courseDurationTd);
+                        courseTr.appendChild(courseDifficultyTd);
+                        courseTr.appendChild(courseStatusTd);
+
+                        courseTable.appendChild(courseTr);
+
+                        userActiveCoursesTd.innerText += `${course.id}, `;
+
+                    });
+                    userTr.appendChild(userActiveCoursesTd);
+                    userTable.appendChild(userTr);
+                });
+
+
             });
     }
 </script>
