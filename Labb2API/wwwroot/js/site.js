@@ -14,3 +14,14 @@ class User {
     }
 }
 
+class Course {
+    constructor(id, title, description, duration, difficulty, status) {
+        this.Id = id;
+        this.Title = title;
+        this.Description = description;
+        this.Duration = duration;
+        this.Difficulty = difficulty;
+        this.Status = status;
+    }
+}
+

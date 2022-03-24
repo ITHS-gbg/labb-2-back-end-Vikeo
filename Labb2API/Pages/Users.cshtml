@@ -7,39 +7,66 @@
 }
 
 <div class="text-center">
-    <button onclick="GetUsers();" class="btn btn-primary">Get Users</button>
-    <table id="UserTable" class="align-items-center align-content-center align-self-center">
-
-    </table>
+    @*<button onclick="GetUsers();" class="btn btn-primary">Get Users</button>*@
+    @*Calls OnGet() in model. TODO Find other way to call?*@
+    <form method="get">
+        <button type="submit" onclick="GetUsers();" class="btn btn-primary">Get Users</button>
+    </form>
     
-    <table id="UserActiveCourseTable" class="align-items-center align-content-center align-self-center">
-        <tr>
-        </tr>
-    </table>
+    @if (@Model.Users.Count <= 0)
+    {
+
+    }
+    else
+    {
+        <table id="UserTable" class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>activeCourses</th>
+            </tr>
+            </thead>
+        
+        @foreach (var user in @Model.Users)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.Phone</td>
+                <td>@user.Address</td>
+                <td>@*@user.ActiveCourses*@
+                    @foreach (var course in @user.ActiveCourses)
+                    {
+                        <p>@course.Id</p>
+                    }
+                    </td>
+
+            </tr>
+        }
+        </table>
+    }
+    
+    
+
 </div>
 
-<script>
+
+
+
+
+
+
+@*<script>
     
 //const GetUsers = () => {}; //detta laddar inte in koden i funktionen förren man anropar den.
     const GetUsers = () => {
         const userTable = document.getElementById("UserTable");
-        userTable.innerHTML = `<tr>
-                                   <th>First Name</th>
-                                   <th>Last Name</th>
-                                   <th>Email</th>
-                                   <th>Phone</th>
-                                   <th>Address</th>
-                                   <th>activeCourses</th>
-                               </tr>`;
-        const courseTable = document.getElementById("UserActiveCourseTable");
-        courseTable.innerHTML = `<tr>
-                                     <th>Id</th>
-                                     <th>Title</th>
-                                     <th>Description</th>
-                                     <th>Duration</th>
-                                     <th>Difficulty</th>
-                                     <th>Status</th>
-                                 </tr>`;
+        userTable.innerHTML = ``;
 
         const users = [];
 
@@ -81,37 +108,9 @@
                     userTr.appendChild(userPhoneTd);
                     userTr.appendChild(userAddressTd);
 
-                    
-                    
-
                     const userActiveCoursesTd = document.createElement("td");
                     user.ActiveCourses.forEach((course) => {
-                        const courseTr = document.createElement("tr");
-                        const courseIdTd = document.createElement("td");
-                        const courseTitleTd = document.createElement("td");
-                        const courseDescriptionTd = document.createElement("td");
-                        const courseDurationTd = document.createElement("td");
-                        const courseDifficultyTd = document.createElement("td");
-                        const courseStatusTd = document.createElement("td");
-
-                        courseIdTd.innerText = course.id;
-                        courseTitleTd.innerText = course.title;
-                        courseDescriptionTd.innerText = course.description;
-                        courseDurationTd.innerText = course.duration;
-                        courseDifficultyTd.innerText = course.difficulty;
-                        courseStatusTd.innerText = course.status;
-
-                        courseTr.appendChild(courseIdTd);
-                        courseTr.appendChild(courseTitleTd);
-                        courseTr.appendChild(courseDescriptionTd);
-                        courseTr.appendChild(courseDurationTd);
-                        courseTr.appendChild(courseDifficultyTd);
-                        courseTr.appendChild(courseStatusTd);
-
-                        courseTable.appendChild(courseTr);
-
                         userActiveCoursesTd.innerText += `${course.id}, `;
-
                     });
                     userTr.appendChild(userActiveCoursesTd);
                     userTable.appendChild(userTr);
@@ -120,4 +119,4 @@
 
             });
     }
-</script>
+</script>*@

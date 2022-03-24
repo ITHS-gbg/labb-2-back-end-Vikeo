@@ -1,11 +1,11 @@
-using Labb2API.DAL;
-using Labb2API.DAL.Contexts;
-using Labb2API.DAL.Models;
-using Labb2API.DAL.Respositories;
+using Labb2API.Backend.DAL;
+using Labb2API.Backend.DAL.Contexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient("api", client => client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseRoute")));
 
 builder.Services.AddRazorPages();
 
