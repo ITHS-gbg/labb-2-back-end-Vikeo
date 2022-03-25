@@ -18,6 +18,8 @@ public class CoursesModel : PageModel
     [BindProperty]
     public List<Course> Courses { get; set; }
 
+    [BindProperty]
+    public int CourseId { get; set; }
 
     public async Task OnGetAsync()
     {
@@ -25,7 +27,24 @@ public class CoursesModel : PageModel
         var request = new HttpRequestMessage(HttpMethod.Get, "controller/courses");
         var response = await client.SendAsync(request);
         var content = await response.Content.ReadAsStreamAsync();
-        Courses = await JsonSerializer.DeserializeAsync<List<Course>>(content);
+        try
+        {
+            Courses = await JsonSerializer.DeserializeAsync<List<Course>>(content);
+        }
+        catch (Exception e)
+        {
+            Courses = new List<Course>();
+            Console.WriteLine(e);
+            //throw;
+        }
+    }
 
+    public async Task<IActionResult> OnPostDeleteAsync()
+    {
+        var client = _httpClientFactory.CreateClient("api");
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"controller/courses/{CourseId}");
+        var response = await client.SendAsync(request);
+        
+        return RedirectToPage();
     }
 }

@@ -1,4 +1,7 @@
 ﻿@page
+@using System.Linq
+@using Labb2API.Backend.Controllers
+@using Labb2API.Backend.DAL.Models
 @model Labb2API.Pages.CoursesModel
 @{
     ViewData["Title"] = "Courses";
@@ -22,6 +25,7 @@ else
             <th>Duration</th>
             <th>Difficulty</th>
             <th>Active</th>
+            <th>Buttons</th>
         </tr>
         </thead>
         
@@ -34,7 +38,13 @@ else
                 <td>@course.Duration</td>
                 <td>@course.Difficulty</td>
                 <td>@course.Status</td>
-
+                <td>
+                    <form method="post">
+                        <input type="hidden" value="@course.Id" asp-for="CourseId"/>
+                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                    </form>
+                    <button class="btn btn-primary">Edit</button>
+                </td>
             </tr>
         }
     </table>

@@ -1,4 +1,5 @@
-﻿using Labb2API.Backend.DAL.Models;
+﻿using System.Security.Principal;
+using Labb2API.Backend.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
@@ -12,19 +13,39 @@ public class UsersModel : PageModel
     [BindProperty]
     public List<User> Users { get; set; }
 
+    [BindProperty]
+    public string UserEmail { get; set; }
+
     public UsersModel(ILogger<UsersModel> logger, IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task OnGet()
+    public async Task OnGetAsync()
     {
         var client = _httpClientFactory.CreateClient("api");
         var request = new HttpRequestMessage(HttpMethod.Get, "controller/users");
         var response = await client.SendAsync(request);
 
         var content = await response.Content.ReadAsStreamAsync();
-        Users = await JsonSerializer.DeserializeAsync<List<User>>(content);
+        try
+        {
+            Users = await JsonSerializer.DeserializeAsync<List<User>>(content);
+        }
+        catch (Exception e)
+        {
+            Users = new List<User>();
+            Console.WriteLine(e);
+        }
+    }
+
+    public async Task<IActionResult> OnPostDeleteAsync()
+    {
+        var client = _httpClientFactory.CreateClient("api");
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"controller/users/{UserEmail}");
+        var response = await client.SendAsync(request);
+        
+        return RedirectToPage();
     }
 }

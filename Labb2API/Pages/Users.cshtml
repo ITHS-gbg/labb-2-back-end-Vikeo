@@ -23,6 +23,8 @@
                 <th>Phone</th>
                 <th>Address</th>
                 <th>activeCourses</th>
+                <th>Buttons</th>
+
             </tr>
             </thead>
         
@@ -39,15 +41,18 @@
                     {
                         <p>@course.Id</p>
                     }
-                    </td>
-
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" value="@user.Email" asp-for="UserEmail"/>
+                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                    </form>
+                    <button class="btn btn-primary">Edit</button>
+                </td>
             </tr>
         }
         </table>
     }
-    
-    
-
 </div>
 
 
