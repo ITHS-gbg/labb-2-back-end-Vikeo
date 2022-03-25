@@ -18,6 +18,7 @@ public record Course : ISerializable
     public int Duration { get; set; }
     [JsonPropertyName("Difficulty")]
     public CourseDifficulty Difficulty { get; set; }
+    //TODO Change name to IsActive, etc.
     [JsonPropertyName("Status")]
     public bool Status { get; set; }
     [JsonPropertyName("Users")]

@@ -18,13 +18,13 @@ public class UsersModel : PageModel
         _httpClientFactory = httpClientFactory;
     }
 
-    public void OnGet()
+    public async Task OnGet()
     {
         var client = _httpClientFactory.CreateClient("api");
         var request = new HttpRequestMessage(HttpMethod.Get, "controller/users");
-        var response = client.Send(request);
+        var response = await client.SendAsync(request);
 
-        var content = response.Content.ReadAsStream();
-        Users = JsonSerializer.Deserialize<List<User>>(content);
+        var content = await response.Content.ReadAsStreamAsync();
+        Users = await JsonSerializer.DeserializeAsync<List<User>>(content);
     }
 }

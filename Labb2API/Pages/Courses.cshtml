@@ -6,99 +6,37 @@
 }
 
 <div class="text-center">
-    <button onclick="GetCourses();" class="btn btn-primary">Get Courses</button>
 
-    <table id="CoursesTable" class="align-items-center align-content-center align-self-center">
-        <tr>
-        </tr>
-    </table>
-</div>
-
-<script>
-const GetCourses = () => {
-    const courseTable = document.getElementById("CoursesTable");
-        courseTable.innerHTML = `<tr>
-                                     <th>Id</th>
-                                     <th>Title</th>
-                                     <th>Description</th>
-                                     <th>Duration</th>
-                                     <th>Difficulty</th>
-                                     <th>Status</th>
-                                 </tr>`;
-
-        const courses = [];
-
-        fetch("@fetchString")
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    const course = new Course(
-                        data[i].id, 
-                        data[i].title, 
-                        data[i].description, 
-                        data[i].duration, 
-                        data[i].difficulty, 
-                        data[i].status);
-                    courses.push(course);
-                }
-                //TODO Få in det här i funktionen som använder data. Detta är redundant.
-                courses.forEach((course) => {
-
-                    const courseTr = document.createElement("tr");
-
-                    const courseIdTd = document.createElement("td");
-                    const courseTitleTd = document.createElement("td");
-                    const courseDescriptionTd = document.createElement("td");
-                    const courseDurationTd = document.createElement("td");
-                    const courseDifficultyTd = document.createElement("td");
-                    const courseStatusTd = document.createElement("td");
-
-
-                    courseIdTd.innerText = course.Id;
-                    courseTitleTd.innerText = course.Title;
-                    courseDescriptionTd.innerText = course.Description;
-                    courseDurationTd.innerText = course.Duration;
-
-                    switch (course.Difficulty) {
-                    case 1:
-                        courseDifficultyTd.innerText = "Beginner";
-                        break;
-                    case 2: 
-                        courseDifficultyTd.innerText = "Intermediate";
-                        break;
-                    case 3: 
-                        courseDifficultyTd.innerText = "Advanced";
-                        break;
-
-                    default:
-                        courseDifficultyTd.innerText = "N/A";
-                    }
-
-                    switch (course.Status) {
-                    case 1:
-                        courseStatusTd.innerText = "Active";
-                        break;
-                    case 0: 
-                        courseStatusTd.innerText = "Inactive";
-                        break;
-
-                    default:
-                        courseDifficultyTd.innerText = "N/A";
-                    }
-
-                    courseTr.appendChild(courseIdTd);
-                    courseTr.appendChild(courseTitleTd);
-                    courseTr.appendChild(courseDescriptionTd);
-                    courseTr.appendChild(courseDurationTd);
-                    courseTr.appendChild(courseDifficultyTd);
-                    courseTr.appendChild(courseStatusTd);
-
-                    courseTable.appendChild(courseTr);
-
-                });
-            });
+@if (@Model.Courses.Count <= 0)
+{
+    <div>Vart är alla..?</div>
 }
-</script>
+else
+{
+    <table id="UserTable" class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Difficulty</th>
+            <th>Active</th>
+        </tr>
+        </thead>
+        
+        @foreach (var course in @Model.Courses)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.Title</td>
+                <td>@course.Description</td>
+                <td>@course.Duration</td>
+                <td>@course.Difficulty</td>
+                <td>@course.Status</td>
+
+            </tr>
+        }
+    </table>
+}
+</div>

@@ -7,15 +7,10 @@
 }
 
 <div class="text-center">
-    @*<button onclick="GetUsers();" class="btn btn-primary">Get Users</button>*@
-    @*Calls OnGet() in model. TODO Find other way to call?*@
-    <form method="get">
-        <button type="submit" onclick="GetUsers();" class="btn btn-primary">Get Users</button>
-    </form>
-    
+
     @if (@Model.Users.Count <= 0)
     {
-
+        <div>Vart är alla..?</div>
     }
     else
     {

@@ -17,16 +17,24 @@ public class CreateCourseModel : PageModel
     //public void OnGet()
     //{
     //}
+    [BindProperty]
+    public Course Course { get; set; }
 
     public async Task OnPostAsync()
     {
         var body = JsonContent.Create(new
         {
-            Title = Request.Form["courseTitle"].ToString(),
-            Description = Request.Form["courseDescription"].ToString(),
-            Duration = Request.Form["courseDuration"].ToString(),
-            Difficulty = int.Parse(Request.Form["courseDifficulty"].ToString()),
-            Status = int.Parse(Request.Form["courseStatus"].ToString())
+            Course.Title,
+            Course.Description,
+            Course.Duration,
+            Course.Difficulty,
+            Course.Status,
+
+            //Title = Request.Form["courseTitle"].ToString(),
+            //Description = Request.Form["courseDescription"].ToString(),
+            //Duration = Request.Form["courseDuration"].ToString(),
+            //Difficulty = int.Parse(Request.Form["courseDifficulty"].ToString()),
+            //Status = bool.Parse(Request.Form["courseStatus"])
         });
         var client = _httpClientFactory.CreateClient("api");
 
