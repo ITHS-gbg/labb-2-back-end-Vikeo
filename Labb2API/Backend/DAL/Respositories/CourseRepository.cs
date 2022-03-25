@@ -2,6 +2,7 @@
 using Labb2API.Backend.DAL.Enums;
 using Labb2API.Backend.DAL.Models;
 using Labb2API.Backend.DAL.Respositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Labb2API.Backend.DAL.Respositories;
 
@@ -14,33 +15,33 @@ public class CourseRepository : ICourseRepository
         _websiteContext = websiteContext;
     }
 
-    public bool CreateCourse(Course course)
+    public async Task<bool> CreateCourseAsync(Course course)
     {
         //TODO Kollar hela kursen, kanske borde kolla vissa delar bara.
 
-        if (_websiteContext.Courses.Contains(course)) return false;
+        if (await _websiteContext.Courses.ContainsAsync(course)) return false;
 
-        _websiteContext.Courses.Add(course);
+        await _websiteContext.Courses.AddAsync(course);
         return true;
     }
 
-    public List<Course> GetAllCourses()
+    public async Task<List<Course>> GetAllCoursesAsync()
     {
-        return _websiteContext.Courses.ToList();
+        return await _websiteContext.Courses.ToListAsync();
     }
 
-    public Course? GetCourse(int id)
+    public async Task<Course?> GetCourseAsync(int id)
     {
-        var existingCourse = _websiteContext.Courses.FirstOrDefault(c => c.Id == id);
+        var existingCourse = await _websiteContext.Courses.FirstOrDefaultAsync(c => c.Id == id);
         if (existingCourse == null) return null;
         if (existingCourse.Id != id) return null;
 
         return existingCourse;
     }
 
-    public bool UpdateCourse(int id, Course course)
+    public async Task<bool> UpdateCourseAsync(int id, Course course)
     {
-        var existingCourse = _websiteContext.Courses.FirstOrDefault(c => c.Id == id);
+        var existingCourse = await _websiteContext.Courses.FirstOrDefaultAsync(c => c.Id == id);
 
         if (existingCourse.Id != id) return false;
 
@@ -57,21 +58,23 @@ public class CourseRepository : ICourseRepository
     }
 
     //TODO Ska jag ta in courseId eller Course????
-    public bool UpdateCourseStatus(Course course, int status)
+    public async Task<bool> UpdateCourseStatusAsync(Course course, bool status)
     {
-        if (!_websiteContext.Courses.Contains(course)) return false;
+        if (!await _websiteContext.Courses.ContainsAsync(course)) return false;
 
-        if (status > Enum.GetValues(typeof(CourseStatus)).Cast<int>().Max() ||
-            status < Enum.GetValues(typeof(CourseStatus)).Cast<int>().Min()) return false;
+        if (status == course.Status)
+        {
+            return false;
+        }
 
-        course.Status = (CourseStatus)status;
+        course.Status = status;
 
         return true;
     }
 
-    public bool UpdateCourseDifficulty(Course course, int difficulty)
+    public async Task<bool> UpdateCourseDifficultyAsync(Course course, int difficulty)
     {
-        if (!_websiteContext.Courses.Contains(course)) return false;
+        if (!await _websiteContext.Courses.ContainsAsync(course)) return false;
 
         if (difficulty > Enum.GetValues(typeof(CourseDifficulty)).Cast<int>().Max() ||
             difficulty < Enum.GetValues(typeof(CourseDifficulty)).Cast<int>().Min()) return false;
@@ -81,9 +84,9 @@ public class CourseRepository : ICourseRepository
         return true;
     }
 
-    public bool DeleteCourse(int id)
+    public async Task<bool> DeleteCourseAsync(int id)
     {
-        var existingCourse = _websiteContext.Courses.FirstOrDefault(c => c.Id == id);
+        var existingCourse = await _websiteContext.Courses.FirstOrDefaultAsync(c => c.Id == id);
         if (existingCourse == null) return false;
         if (existingCourse.Id != id) return false;
 

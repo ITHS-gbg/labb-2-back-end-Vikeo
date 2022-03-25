@@ -5,11 +5,11 @@ namespace Labb2API.Backend.DAL.Respositories.Interfaces;
 public interface IUserRepository
 {
     //TODO Maybe make async
-    bool CreateUser(User user);
-    List<User> GetAllUsers();
-    User? GetUser(string email);
-    bool UpdateUser(User user);
-    bool AddActiveCourse(User user, Course course);
-    bool RemoveActiveCourse(User user, Course course);
-    bool RemoveUser(User user);
+    Task<bool> CreateUserAsync(User user);
+    Task<List<User>> GetAllUsersAsync();
+    Task<User?> GetUserAsync(string email);
+    Task<bool> UpdateUserAsync(User user);
+    Task<bool> AddActiveCourseAsync(User user, Course course);
+    Task<bool> RemoveActiveCourseAsync(User user, Course course);
+    Task<bool> RemoveUserAsync(User user);
 }

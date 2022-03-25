@@ -5,11 +5,11 @@ namespace Labb2API.Backend.DAL.Respositories.Interfaces;
 public interface ICourseRepository
 {
     //TODO Maybe make async
-    bool CreateCourse(Course course);
-    List<Course> GetAllCourses();
-    Course? GetCourse(int id);
-    bool UpdateCourse(int id, Course course);
-    bool UpdateCourseStatus(Course course, int status);
-    bool UpdateCourseDifficulty(Course course, int difficulty);
-    bool DeleteCourse(int id);
+    Task<bool> CreateCourseAsync(Course course);
+    Task<List<Course>> GetAllCoursesAsync();
+    Task<Course?> GetCourseAsync(int id);
+    Task<bool> UpdateCourseAsync(int id, Course course);
+    Task<bool> UpdateCourseStatusAsync(Course course, bool status);
+    Task<bool> UpdateCourseDifficultyAsync(Course course, int difficulty);
+    Task<bool> DeleteCourseAsync(int id);
 }

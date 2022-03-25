@@ -20,9 +20,9 @@ public class UserController : ControllerBase
 
     //GET, hämta alla users
     [HttpGet]
-    public IActionResult GetUsers()
+    public async Task<IActionResult> GetUsers()
     {
-        var users = _unitOfWork.UserRepository.GetAllUsers();
+        var users = await _unitOfWork.UserRepository.GetAllUsersAsync();
 
         if (users.Count <= 0)
         {
@@ -34,9 +34,9 @@ public class UserController : ControllerBase
 
     //GET, hämta en user
     [HttpGet("{email}")]
-    public IActionResult GetOneUser(string email)
+    public async Task<IActionResult> GetOneUser(string email)
     {
-        var user = _unitOfWork.UserRepository.GetUser(email);
+        var user = await _unitOfWork.UserRepository.GetUserAsync(email);
 
         if (user is null)
         {
@@ -55,9 +55,9 @@ public class UserController : ControllerBase
             return BadRequest();
         }
 
-        if (_unitOfWork.UserRepository.CreateUser(user))
+        if (await _unitOfWork.UserRepository.CreateUserAsync(user))
         {
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return Ok();
         }
         return Conflict();
@@ -65,7 +65,7 @@ public class UserController : ControllerBase
 
     //PUT, ändra en users alla properites.
     [HttpPut("{email}")]
-    public IActionResult PutUser([FromBody] User user, string email)
+    public async Task<IActionResult> PutUser([FromBody] User user, string email)
     {
         //TODO Tror att jag kolla om mailen stämmer eller inte 3 gånger.
         if (user.Email != email)
@@ -73,9 +73,9 @@ public class UserController : ControllerBase
             return BadRequest("Mailen i HTTP-requesten måste vara samma som mailen i body.");
         }
 
-        if (_unitOfWork.UserRepository.UpdateUser(user))
+        if (await _unitOfWork.UserRepository.UpdateUserAsync(user))
         {
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return Ok();
         }
         return NotFound();
@@ -83,19 +83,19 @@ public class UserController : ControllerBase
 
     //POST, lägger till kurs till ActiveCourses
     [HttpPost("{email}/{courseId}")]
-    public IActionResult PostActiveCourse(string email, int courseId)
+    public async Task<IActionResult> PostActiveCourse(string email, int courseId)
     {
-        var course = _unitOfWork.CourseRepository.GetCourse(courseId);
-        var user = _unitOfWork.UserRepository.GetUser(email);
+        var course = await _unitOfWork.CourseRepository.GetCourseAsync(courseId);
+        var user = await _unitOfWork.UserRepository.GetUserAsync(email);
 
         if (course is null || user is null)
         {
             return NotFound();
         }
 
-        if (_unitOfWork.UserRepository.AddActiveCourse(user, course))
+        if (await _unitOfWork.UserRepository.AddActiveCourseAsync(user, course))
         {
-            bool canSave = _unitOfWork.Save();
+            bool canSave = await _unitOfWork.SaveAsync();
 
             if (!canSave)
             {
@@ -110,19 +110,19 @@ public class UserController : ControllerBase
 
     //DELETE, ta bort kurs från activecourse.
     [HttpDelete("{email}/{courseId}")]
-    public IActionResult DeleteActiveCourse(string email, int courseId)
+    public async Task<IActionResult> DeleteActiveCourse(string email, int courseId)
     {
-        var course = _unitOfWork.CourseRepository.GetCourse(courseId);
-        var user = _unitOfWork.UserRepository.GetUser(email);
+        var course = await _unitOfWork.CourseRepository.GetCourseAsync(courseId);
+        var user = await _unitOfWork.UserRepository.GetUserAsync(email);
 
         if (course is null || user is null)
         {
             return NotFound();
         }
 
-        if (_unitOfWork.UserRepository.RemoveActiveCourse(user, course))
+        if (await _unitOfWork.UserRepository.RemoveActiveCourseAsync(user, course))
         {
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return Ok();
         }
         return NotFound();
@@ -130,17 +130,17 @@ public class UserController : ControllerBase
 
     //DELETE, ta bort en användare.
     [HttpDelete("{email}")]
-    public IActionResult DeleteUser(string email)
+    public async Task<IActionResult> DeleteUser(string email)
     {
-        var user = _unitOfWork.UserRepository.GetUser(email);
+        var user = await _unitOfWork.UserRepository.GetUserAsync(email);
 
         if (user is null)
         {
             return NotFound(user);
         }
 
-        _unitOfWork.UserRepository.RemoveUser(user);
-        _unitOfWork.Save();
+        await _unitOfWork.UserRepository.RemoveUserAsync(user);
+        await _unitOfWork.SaveAsync();
         return Ok();
     }
 

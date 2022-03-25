@@ -19,12 +19,12 @@ public record Course : ISerializable
     [JsonPropertyName("Difficulty")]
     public CourseDifficulty Difficulty { get; set; }
     [JsonPropertyName("Status")]
-    public CourseStatus Status { get; set; }
+    public bool Status { get; set; }
     [JsonPropertyName("Users")]
     [JsonIgnore]
     public virtual ICollection<User> Users { get; set; }
 
-    public Course(string title, string description, int duration, CourseDifficulty difficulty, CourseStatus status)
+    public Course(string title, string description, int duration, CourseDifficulty difficulty, bool status)
     {
         Title = title;
         Description = description;

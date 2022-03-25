@@ -18,9 +18,9 @@ public class CourseController : ControllerBase
 
     //GET, hämta alla courses.
     [HttpGet]
-    public IActionResult GetAllCourses()
+    public async Task<IActionResult> GetAllCoursesAsync()
     {
-        var courses = _unitOfWork.CourseRepository.GetAllCourses();
+        var courses = await _unitOfWork.CourseRepository.GetAllCoursesAsync();
 
         if (courses.Count <= 0)
         {
@@ -32,9 +32,9 @@ public class CourseController : ControllerBase
 
     //GET, hämta en course.
     [HttpGet("{courseId}")]
-    public IActionResult GetOneCourse(int courseId)
+    public async Task<IActionResult> GetOneCourseAsync(int courseId)
     {
-        var course = _unitOfWork.CourseRepository.GetCourse(courseId);
+        var course = await _unitOfWork.CourseRepository.GetCourseAsync(courseId);
 
         if (course is null)
         {
@@ -45,7 +45,7 @@ public class CourseController : ControllerBase
 
     //POST, skapa en course.
     [HttpPost]
-    public IActionResult PostOneCourse([FromBody] Course course)
+    public async Task<IActionResult> PostOneCourseAsync([FromBody] Course course)
     {
         //TODO Kan jag verkligen kolla ID:t här?
         if (course.Id < 0)
@@ -53,9 +53,9 @@ public class CourseController : ControllerBase
             return BadRequest();
         }
 
-        if (_unitOfWork.CourseRepository.CreateCourse(course))
+        if (await _unitOfWork.CourseRepository.CreateCourseAsync(course))
         {
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return Ok();
         }
 
@@ -64,7 +64,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpPut("{courseId}")]
-    public IActionResult PutCourse([FromBody] Course course, int courseId)
+    public async Task<IActionResult> PutCourseAsync([FromBody] Course course, int courseId)
     {
         //TODO Kan jag verkligen kolla ID här, spelar det ens någon roll?
         if (course.Id < 0)
@@ -72,9 +72,9 @@ public class CourseController : ControllerBase
             return BadRequest();
         }
 
-        if (_unitOfWork.CourseRepository.UpdateCourse(courseId, course))
+        if (await _unitOfWork.CourseRepository.UpdateCourseAsync(courseId, course))
         {
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return Ok();
         }
 
@@ -83,17 +83,17 @@ public class CourseController : ControllerBase
 
     //PATCH, uppdatera status på en course
     [HttpPatch("status/{courseId}")]
-    public IActionResult PatchCourseStatus(int courseId, int status)
+    public async Task<IActionResult> PatchCourseStatusAsync(int courseId, bool status)
     {
-        var course = _unitOfWork.CourseRepository.GetCourse(courseId);
+        var course = await _unitOfWork.CourseRepository.GetCourseAsync(courseId);
         if (course is null)
         {
             return NotFound();
         }
 
-        if (_unitOfWork.CourseRepository.UpdateCourseStatus(course, status))
+        if (await _unitOfWork.CourseRepository.UpdateCourseStatusAsync(course, status))
         {
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return Ok();
         }
 
@@ -102,31 +102,30 @@ public class CourseController : ControllerBase
 
     //PATCH, uppdatera difficulty på en course
     [HttpPatch("difficulty/{courseId}")]
-    public IActionResult PatchCourseDifficulty(int courseId, int difficulty)
+    public async Task<IActionResult> PatchCourseDifficultyAsync(int courseId, int difficulty)
     {
-        var course = _unitOfWork.CourseRepository.GetCourse(courseId);
+        var course = await _unitOfWork.CourseRepository.GetCourseAsync(courseId);
         if (course is null)
         {
             return NotFound();
         }
 
-        if (_unitOfWork.CourseRepository.UpdateCourseDifficulty(course, difficulty))
+        if (await _unitOfWork.CourseRepository.UpdateCourseDifficultyAsync(course, difficulty))
         {
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return Ok();
         }
 
         return BadRequest();
     }
 
-
     //DELETE, ta bort en kurs från courses.
     [HttpDelete("{courseId}")]
-    public IActionResult DeleteCourse(int courseId)
+    public async Task<IActionResult> DeleteCourseAsync(int courseId)
     {
-        if (_unitOfWork.CourseRepository.DeleteCourse(courseId))
+        if (await _unitOfWork.CourseRepository.DeleteCourseAsync(courseId))
         {
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return Ok();
         }
         return NotFound();

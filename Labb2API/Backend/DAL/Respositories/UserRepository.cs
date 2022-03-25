@@ -15,40 +15,39 @@ public class UserRepository : IUserRepository
         _websiteContext = websiteContext;
     }
 
-    public bool CreateUser(User user)
+    public async Task<bool> CreateUserAsync(User user)
     {
         //TODO Always false
         if (user is null) return false;
 
         //Makes it so that two users can't have the same email.
-        if (GetAllUsers().Exists(u => u.Email == user.Email))
+        //TODO double check to see if this works as intended. ^
+        if ((await GetAllUsersAsync()).Exists(u => u.Email == user.Email))
         {
             return false;
         }
-        _websiteContext.Users.Add(user);
+        await _websiteContext.Users.AddAsync(user);
         return true;
     }
 
-    public List<User> GetAllUsers()
+    public async Task<List<User>> GetAllUsersAsync()
     {
-        return _websiteContext.Users.Include(u => u.ActiveCourses).ToList();
+        return await _websiteContext.Users.Include(u => u.ActiveCourses).ToListAsync();
     }
 
     //TODO Ska jag ha async lr not?
-    public User? GetUser(string email)
+    public async Task<User?> GetUserAsync(string email)
     {
         //TODO ändra till en rad. Debug user.
-        //TODO Hur får jag till activecourses på users?
-        //TODO Include Course på denna också.
-        var user = _websiteContext.Users.Include(u => u.ActiveCourses).FirstOrDefault(u => u.Email == email);
+        var user = await _websiteContext.Users.Include(u => u.ActiveCourses).FirstOrDefaultAsync(u => u.Email == email);
         return user;
     }
 
     //PUT Replace the properties of a user.
     //TODO Is it PUT if you don't replace the whole user?
-    public bool UpdateUser(User user)
+    public async Task<bool> UpdateUserAsync(User user)
     {
-        var existingUser = _websiteContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        var existingUser = await _websiteContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
 
         if (existingUser is null)
         {
@@ -65,10 +64,10 @@ public class UserRepository : IUserRepository
         return true;
     }
 
-    public bool AddActiveCourse(User user, Course course)
+    public async Task<bool> AddActiveCourseAsync(User user, Course course)
     {
-        var existingUser = _websiteContext.Users.FirstOrDefault(u => u.Email == user.Email);
-        var matchedCourse = _websiteContext.Courses.FirstOrDefault(c => c.Id == course.Id);
+        var existingUser = await _websiteContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+        var matchedCourse = await _websiteContext.Courses.FirstOrDefaultAsync(c => c.Id == course.Id);
 
         if (existingUser.ActiveCourses.Contains(matchedCourse))
         {
@@ -84,10 +83,10 @@ public class UserRepository : IUserRepository
         return true;
     }
 
-    public bool RemoveActiveCourse(User user, Course course)
+    public async Task<bool> RemoveActiveCourseAsync(User user, Course course)
     {
-        var existingUser = _websiteContext.Users.FirstOrDefault(u => u.Email == user.Email);
-        var matchedCourse = _websiteContext.Courses.FirstOrDefault(c => c.Id == course.Id);
+        var existingUser = await _websiteContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+        var matchedCourse = await _websiteContext.Courses.FirstOrDefaultAsync(c => c.Id == course.Id);
 
         if (matchedCourse is null)
         {
@@ -103,10 +102,10 @@ public class UserRepository : IUserRepository
         return true;
     }
 
-    public bool RemoveUser(User user)
+    public async Task<bool> RemoveUserAsync(User user)
     {
-
-        if (!_websiteContext.Users.ToList().Exists(u => u.Email == user.Email))
+        //TODO Double check if it does the right thing.
+        if (!(await GetAllUsersAsync()).Exists(u => u.Email == user.Email))
         {
             return false;
         }

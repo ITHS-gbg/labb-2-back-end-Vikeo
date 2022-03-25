@@ -39,11 +39,11 @@ public class UnitOfWork : IDisposable
         _websiteContext = websiteContext;
     }
 
-    public bool Save()
+    public async Task<bool> SaveAsync()
     {
         try
         {
-            _websiteContext.SaveChanges();
+            await _websiteContext.SaveChangesAsync();
         }
         catch (Exception e)
         {
