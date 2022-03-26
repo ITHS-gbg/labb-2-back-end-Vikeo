@@ -1,4 +1,5 @@
 ﻿@page
+@using Labb2API.Backend.DAL.Models
 @model Labb2API.Pages.EditUserModel
 @{
 }
@@ -12,6 +13,7 @@
             {
                 <option value="@user.Email"> @user.Email (@user.Id)</option>
             }
+        </select>
             <label asp-for="SelectedUser.FirstName">First Name</label>
             <input type="text" id="firstName" class="form-control form-text" asp-for="SelectedUser.FirstName" value="">
 
@@ -26,11 +28,10 @@
 
             <label asp-for="SelectedUser.Address">Address</label>
             <input type="text" id="address" class="form-control form-text" asp-for="SelectedUser.Address" value="">
-        </select>
+        
     </div>
-    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    <button type="submit" class="btn btn-primary mt-3" asp-page-handler="User">Edit</button>
 </form>
-
 <div class="text-center">
     <table id="activeCoursesTable" class="table table-hover mt-2">
         <thead class="table-dark">
@@ -41,34 +42,78 @@
             <th>Duration</th>
             <th>Difficulty</th>
             <th>Active</th>
-            <th>Buttons</th>
         </tr>
         </thead>
-        </table>
+    </table>
 </div>
+<form method="post">
+    <div class="form-group">
+        <label> Registered Courses</label>
+        <select id="selectedActiveCourse" class="form-control form-select">
+            <option disabled selected>Select</option>
+        </select>
+    </div>
+    <input type="hidden" value="" name="deleteCourseEmail" id="deleteCourseEmail"/>
+    <input type="hidden" value="" name="deleteCourseId" id="deleteCourseId"/>
+    <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Remove Course</button>
+</form>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="SelectedCourseId">Courses</label>
+        <select id="selectedCourse" class="form-control form-select">
+            <option disabled selected>Select</option>
+            @foreach (var course in @Model.Courses)
+            {
+                <option value="@course.Id"> @course.Title (@course.Id)</option>
+                
+            }
+        </select>
+    </div>
+    <input type="hidden" id="selectedCourseToAdd" asp-for="SelectedCourseId" value="">
+    <input type="hidden" id="selectedUserEmail" asp-for="SelectedUser.Email" value="">
+    <button type="submit" class="btn btn-primary mt-3" asp-page-handler="Course">Add Course</button>
+</form>
 
 <script>
-    var selectedUserHtml = document.getElementById("selectedUser");
-    
-    selectedUserHtml.addEventListener('change', (e) => {
-  console.log(`e.target.value = ${ e.target.value }`);
-  
-  fetch(`/controller/users/${e.target.value}`)
-      .then(response => response.json())
-      .then(data => {
-          console.log(data);
-          document.getElementById("email").readOnly = true; //TODO Readonly just nu, fixa email
-          document.getElementById("firstName").value = data.FirstName;
-          document.getElementById("lastName").value = data.LastName;
-          document.getElementById("email").value = data.Email;
-          document.getElementById("phone").value = data.Phone;
-          document.getElementById("address").value = data.Address;
+    let selectedUserHtml = document.getElementById("selectedUser");
+    const selectedCourseDrop = document.getElementById("selectedActiveCourse");
+    let selectedUserEmail;
 
-          const table = document.getElementById("activeCoursesTable");
-          if (data.ActiveCourses.length <= 0) {
-              table.innerHTML = `<div>Den här användaren har ingen kurs registrerad.</div>`;
-          } else {
-              table.innerHTML = `<table id="activeCoursesTable" class="table table-hover mt-2">
+    const selectedCourse = document.getElementById("selectedCourse");
+    selectedCourse.addEventListener('change', (e) => {
+        document.getElementById("selectedCourseToAdd").value = e.target.value;
+        
+    });
+
+    selectedCourseDrop.addEventListener('change', (e) => {
+        console.log(`e.target.value = ${ e.target.value }`);
+        console.log(e);
+        document.getElementById("deleteCourseEmail").value = selectedUserEmail;
+        document.getElementById("deleteCourseId").value = e.target.value;
+    });
+
+    selectedUserHtml.addEventListener('change', (e) => {
+        console.log(`e.target.value = ${ e.target.value }`);
+        document.getElementById("selectedUserEmail").value = e.target.value;
+        fetch(`/controller/users/${e.target.value}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById("email").readOnly = true; //TODO Readonly just nu, fixa email
+                document.getElementById("firstName").value = data.FirstName;
+                document.getElementById("lastName").value = data.LastName;
+                document.getElementById("email").value = data.Email;
+                document.getElementById("phone").value = data.Phone;
+                document.getElementById("address").value = data.Address;
+
+                selectedUserEmail = data.Email;
+
+                const table = document.getElementById("activeCoursesTable");
+                if (data.ActiveCourses.length <= 0) {
+                    table.innerHTML = `<div>Den här användaren har ingen kurs registrerad.</div>`;
+                } else {
+                    table.innerHTML = `<table id="activeCoursesTable" class="table table-hover mt-2">
                                  <thead class="table-dark">
                                  <tr>
                                      <th>Id</th>
@@ -77,43 +122,50 @@
                                      <th>Duration</th>
                                      <th>Difficulty</th>
                                      <th>Active</th>
-                                     <th>Buttons</th>
                                  </tr>
                                  </thead>
                              </table>`;
-              data.ActiveCourses.forEach(course => {
-                  console.log(course);
-                  const tr = document.createElement("tr");
-                  const td1 = document.createElement("td");
-                  td1.innerText = course.Id;
-                  const td2 = document.createElement("td");
-                  td2.innerText = course.Title;
-                  const td3 = document.createElement("td");
-                  td3.innerText = course.Description;
-                  const td4 = document.createElement("td");
-                  td4.innerText = course.Duration;
-                  const td5 = document.createElement("td");
-                  td5.innerText = course.Difficulty;
-                  const td6 = document.createElement("td");
-                  td6.innerText = course.Status;
-                  const tdButtons = document.createElement("td");
+                    data.ActiveCourses.forEach(course => {
 
-                  tr.appendChild(td1);
-                  tr.appendChild(td2);
-                  tr.appendChild(td3);
-                  tr.appendChild(td4);
-                  tr.appendChild(td5);
-                  tr.appendChild(td6);
-                  tr.appendChild(tdButtons);
+                        console.log(course);
+                        const tr = document.createElement("tr");
+                        const td1 = document.createElement("td");
+                        td1.innerText = course.Id;
+                        const td2 = document.createElement("td");
+                        td2.innerText = course.Title;
+                        const td3 = document.createElement("td");
+                        td3.innerText = course.Description;
+                        const td4 = document.createElement("td");
+                        td4.innerText = course.Duration;
+                        const td5 = document.createElement("td");
+                        td5.innerText = course.Difficulty;
+                        const td6 = document.createElement("td");
+                        td6.innerText = course.Status;
 
-                  table.appendChild(tr);
-              });
-          }
+                        const option = document.createElement("option");
+                        option.value = course.Id;
+                        option.id = `${data.Email}`;
+
+                        option.innerText = `${course.Title} (${course.Id})`;
+
+                        selectedCourseDrop.appendChild(option);
+
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        tr.appendChild(td3);
+                        tr.appendChild(td4);
+                        tr.appendChild(td5);
+                        tr.appendChild(td6);
+
+                        table.appendChild(tr);
+                    });
+                }
               
 
           
-      });
+            });
 
-});
+    });
+
 
 </script>
