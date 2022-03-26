@@ -24,4 +24,3 @@ class Course {
         this.Status = status;
     }
 }
-
