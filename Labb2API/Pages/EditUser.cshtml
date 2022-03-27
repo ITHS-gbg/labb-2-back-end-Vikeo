@@ -76,16 +76,18 @@
 </form>
 
 <script>
+    let selectedUserEmail;
     let selectedUserHtml = document.getElementById("selectedUser");
     const selectedCourseDrop = document.getElementById("selectedActiveCourse");
-    let selectedUserEmail;
-
     const selectedCourse = document.getElementById("selectedCourse");
+
+    //All-Courses-dropdown eventlistener
     selectedCourse.addEventListener('change', (e) => {
         document.getElementById("selectedCourseToAdd").value = e.target.value;
         
     });
 
+    //Users courses-dropdown eventlistener
     selectedCourseDrop.addEventListener('change', (e) => {
         console.log(`e.target.value = ${ e.target.value }`);
         console.log(e);
@@ -93,6 +95,7 @@
         document.getElementById("deleteCourseId").value = e.target.value;
     });
 
+    //User-dropdown eventlistener
     selectedUserHtml.addEventListener('change', (e) => {
         console.log(`e.target.value = ${ e.target.value }`);
         document.getElementById("selectedUserEmail").value = e.target.value;
@@ -144,7 +147,6 @@
 
                         const option = document.createElement("option");
                         option.value = course.Id;
-                        option.id = `${data.Email}`;
 
                         option.innerText = `${course.Title} (${course.Id})`;
 

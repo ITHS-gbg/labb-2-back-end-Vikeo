@@ -88,7 +88,9 @@ namespace Labb2API.Pages
 
         public async Task<IActionResult> OnPostDeleteAsync()
         {
-            Request.Form["courseTitle"].ToString();
+            var email = Request.Form["deleteCourseEmail"].ToString();
+            var id = Request.Form["deleteCourseId"].ToString();
+
             var client = _httpClientFactory.CreateClient("api");
             var request = new HttpRequestMessage(HttpMethod.Delete, $"controller/users/{Request.Form["deleteCourseEmail"].ToString()}/{Request.Form["deleteCourseId"].ToString()}");
             var response = await client.SendAsync(request);
