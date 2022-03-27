@@ -34,6 +34,10 @@ namespace Labb2API.Pages
             try
             {
                 Users = await JsonSerializer.DeserializeAsync<List<User>>(content);
+                //if (SelectedUser is null)
+                //{
+                //    SelectedUser = Users.FirstOrDefault();
+                //}
             }
             catch (Exception e)
             {

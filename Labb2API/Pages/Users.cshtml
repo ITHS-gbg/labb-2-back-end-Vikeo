@@ -3,11 +3,17 @@
 @model UsersModel
 @{
     ViewData["Title"] = "Users";
-    var fetchString = "/controller/users/";
 }
 
 <div class="text-center">
-
+    @*Can't have metod as get, asp-page-handler won't work *@
+    <form method="post">
+        <input type="text" value="" asp-for="UserEmail"/>
+        <button type="submit" asp-page-handler="One" class="btn btn-primary">Search</button>
+    </form>
+    <form method="get">
+        <button type="submit" class="btn btn-primary">Get all users</button>
+    </form>
     @if (@Model.Users.Count <= 0)
     {
         <div>Vart är alla..?</div>
@@ -27,96 +33,30 @@
 
             </tr>
             </thead>
-        
-        @foreach (var user in @Model.Users)
-        {
-            <tr>
-                <td>@user.FirstName</td>
-                <td>@user.LastName</td>
-                <td>@user.Email</td>
-                <td>@user.Phone</td>
-                <td>@user.Address</td>
-                <td>@*@user.ActiveCourses*@
-                    @foreach (var course in @user.ActiveCourses)
-                    {
-                        <p>@course.Id</p>
-                    }
-                </td>
-                <td>
-                    <form method="post">
-                        <input type="hidden" value="@user.Email" asp-for="UserEmail"/>
-                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
-                    </form>
-                    <button class="btn btn-primary">Edit</button>
-                </td>
-            </tr>
-        }
+
+            @foreach (var user in @Model.Users)
+            {
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Phone</td>
+                    <td>@user.Address</td>
+                    <td>@*@user.ActiveCourses*@
+                        @foreach (var course in @user.ActiveCourses)
+                        {
+                            <p>@course.Id</p>
+                        }
+                    </td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" value="@user.Email" asp-for="UserEmail"/>
+                            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                        </form>
+                        <button class="btn btn-primary">Edit</button>
+                    </td>
+                </tr>
+            }
         </table>
     }
 </div>
-
-
-
-
-
-
-
-@*<script>
-    
-//const GetUsers = () => {}; //detta laddar inte in koden i funktionen förren man anropar den.
-    const GetUsers = () => {
-        const userTable = document.getElementById("UserTable");
-        userTable.innerHTML = ``;
-
-        const users = [];
-
-        fetch("@fetchString")
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    const user = new User(
-                        data[i].firstName, 
-                        data[i].lastName, 
-                        data[i].email, 
-                        data[i].phone, 
-                        data[i].address, 
-                        data[i].activeCourses);
-                    users.push(user);
-                }
-                //TODO Få in det här i funktionen som använder data. Detta är redundant.
-                users.forEach((user) => {
-                    const userTr = document.createElement("tr");
-
-                    const userFirstNameTd = document.createElement("td");
-                    const userLastNameTd = document.createElement("td");
-                    const userEmailTd = document.createElement("td");
-                    const userPhoneTd = document.createElement("td");
-                    const userAddressTd = document.createElement("td");
-
-                    userFirstNameTd.innerText = user.FirstName;
-                    userLastNameTd.innerText = user.LastName;
-                    userEmailTd.innerText = user.Email;
-                    userPhoneTd.innerText = user.Phone;
-                    userAddressTd.innerText = user.Address;
-
-                    userTr.appendChild(userFirstNameTd);
-                    userTr.appendChild(userLastNameTd);
-                    userTr.appendChild(userEmailTd);
-                    userTr.appendChild(userPhoneTd);
-                    userTr.appendChild(userAddressTd);
-
-                    const userActiveCoursesTd = document.createElement("td");
-                    user.ActiveCourses.forEach((course) => {
-                        userActiveCoursesTd.innerText += `${course.id}, `;
-                    });
-                    userTr.appendChild(userActiveCoursesTd);
-                    userTable.appendChild(userTr);
-                });
-
-
-            });
-    }
-</script>*@

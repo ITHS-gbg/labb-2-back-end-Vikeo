@@ -1,0 +1,66 @@
+﻿@page
+@model Labb2API.Pages.EditCourseModel
+@{
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="SelectedCourse">Courses</label>
+        <select id="selected-course" class="form-control form-select">
+            <option disabled selected>Select</option>
+            @foreach (var course in @Model.Courses)
+            {
+                <option value="@course.Id"> @course.Title (@course.Id)</option>
+            }
+        </select>
+        <label asp-for="SelectedCourse.Id">Id</label>
+        <input id="course-id" type="text" class="form-control form-text" asp-for="SelectedCourse.Id">
+
+        <label asp-for="SelectedCourse.Title">Title</label>
+        <input id="course-title" type="text" class="form-control form-text" asp-for="SelectedCourse.Title">
+
+        <label asp-for="SelectedCourse.Description">Description</label>
+        <input id="course-description" type="text" class="form-control form-text" asp-for="SelectedCourse.Description">
+
+        <label asp-for="SelectedCourse.Duration">Duration</label>
+        <input id="course-duration" type="number" min="0" class="form-control" asp-for="SelectedCourse.Duration">
+
+        <label asp-for="SelectedCourse.Difficulty">Difficulty</label>
+        <select id="course-difficulty" class="form-control form-select" asp-for="SelectedCourse.Difficulty">
+            <option value="1">Beginner</option>
+            <option value="2">Intermediate</option>
+            <option value="3">Advanced</option>
+        </select>
+
+        <label asp-for="SelectedCourse.Status">Status</label>
+        <select id="course-status" class="form-control form-select" asp-for="SelectedCourse.Status">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+        </select>
+        
+    </div>
+    <button type="submit" class="btn btn-primary mt-3" asp-page-handler="User">Edit</button>
+</form>
+
+<script>
+    let selectedCourseHtml = document.getElementById("selected-course");
+
+    //Course-dropdown eventlistener
+    selectedCourseHtml.addEventListener('change', (e) => {
+        console.log(`e.target.value = ${ e.target.value }`);
+        fetch(`/controller/courses/${e.target.value}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById("course-id").readOnly = true;
+                document.getElementById("course-id").value = data.Id;
+                document.getElementById("course-title").value = data.Title;
+                document.getElementById("course-description").value = data.Description;
+                document.getElementById("course-duration").value = data.Duration;
+                document.getElementById("course-difficulty").value = data.Difficulty;
+                document.getElementById("course-status").value = data.Status;
+            });
+    });
+
+
+</script>

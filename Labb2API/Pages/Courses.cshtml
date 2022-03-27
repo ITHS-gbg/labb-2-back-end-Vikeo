@@ -1,4 +1,5 @@
 ﻿@page
+@using System.ComponentModel
 @using System.Linq
 @using Labb2API.Backend.Controllers
 @using Labb2API.Backend.DAL.Models
@@ -9,10 +10,18 @@
 }
 
 <div class="text-center">
+    
+    <form method="post">
+        <input type="text" value="" asp-for="CourseId"/>
+        <button type="submit" asp-page-handler="One" class="btn btn-primary">Search</button>
+    </form>
+    <form method="get">
+        <button type="submit" class="btn btn-primary">Get all courses</button>
+    </form>
 
-@if (@Model.Courses.Count <= 0)
+    @if (@Model.Courses.Count <= 0)
 {
-    <div>Vart är alla..?</div>
+    <div>Vad ska jag lära mig nu då..?</div>
 }
 else
 {
@@ -24,7 +33,7 @@ else
             <th>Description</th>
             <th>Duration</th>
             <th>Difficulty</th>
-            <th>Active</th>
+            <th>Status</th>
             <th>Buttons</th>
         </tr>
         </thead>
@@ -37,7 +46,21 @@ else
                 <td>@course.Description</td>
                 <td>@course.Duration</td>
                 <td>@course.Difficulty</td>
-                <td>@course.Status</td>
+                <td>@course.Status
+                    <form method="post">
+                        <input type="hidden" value="@course.Id" asp-for="CourseId"/>
+                        
+                        @if (course.Status)
+                        {
+                            <input type="hidden" value="False" asp-for="CourseStatus"/>
+                            <button type="submit" asp-page-handler="ChangeStatus" class="btn btn-success">Active</button>
+                        }
+                        else
+                        {
+                            <input type="hidden" value="True" asp-for="CourseStatus"/>
+                            <button type="submit" asp-page-handler="ChangeStatus" class="btn btn-danger">Inactive</button>
+                        }
+                    </form></td>
                 <td>
                     <form method="post">
                         <input type="hidden" value="@course.Id" asp-for="CourseId"/>

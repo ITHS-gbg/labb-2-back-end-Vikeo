@@ -14,6 +14,9 @@ public class UsersModel : PageModel
     public List<User> Users { get; set; }
 
     [BindProperty]
+    public User User { get; set; }
+
+    [BindProperty]
     public string UserEmail { get; set; }
 
     public UsersModel(ILogger<UsersModel> logger, IHttpClientFactory httpClientFactory)
@@ -37,6 +40,30 @@ public class UsersModel : PageModel
         {
             Users = new List<User>();
             Console.WriteLine(e);
+        }
+    }
+    //GETS a user
+    public async Task OnPostOneAsync()
+    {
+        var client = _httpClientFactory.CreateClient("api");
+        var request = new HttpRequestMessage(HttpMethod.Get, $"controller/users/{UserEmail}");
+        var response = await client.SendAsync(request);
+
+        var content = await response.Content.ReadAsStreamAsync();
+        try
+        {
+            User = await JsonSerializer.DeserializeAsync<User>(content);
+        }
+        catch (Exception e)
+        {
+            User = new User();
+            Console.WriteLine(e);
+        }
+
+        if (User is not null && User.Id != 0)
+        {
+            Users.Add(User);
+            Page();
         }
     }
 
