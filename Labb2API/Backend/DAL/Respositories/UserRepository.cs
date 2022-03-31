@@ -39,7 +39,7 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetUserAsync(string email)
     {
         //TODO ändra till en rad. Debug user.
-        var user = await _websiteContext.Users.Include(u => u.ActiveCourses).FirstOrDefaultAsync(u => u.Email == email);
+        var user = _websiteContext.Users.Include(u => u.ActiveCourses).FirstOrDefaultAsync(u => u.Email == email).Result;
         return user;
     }
 
