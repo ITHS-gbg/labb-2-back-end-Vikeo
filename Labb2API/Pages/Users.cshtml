@@ -7,13 +7,20 @@
 
 <div class="text-center">
     @*Can't have metod as get, asp-page-handler won't work *@
-    <form method="post">
+    <form method="get" class="mt-3">
+        <button type="submit" class="btn btn-primary">Get all users</button>
+    </form>
+
+    <form method="post" class="mt-3">
         <input type="text" value="" asp-for="UserEmail"/>
         <button type="submit" asp-page-handler="One" class="btn btn-primary">Search</button>
     </form>
-    <form method="get">
-        <button type="submit" class="btn btn-primary">Get all users</button>
-    </form>
+    <div class="mt-3 mb-3">
+        <a class="btn btn-primary" asp-area="" asp-page="/CreateUser">Create Users</a>
+        <a class="btn btn-primary ms-3" asp-area="" asp-page="/EditUser">Edit Users</a>
+    </div>
+
+
     @if (@Model.Users.Count <= 0)
     {
         <div>Vart är alla..?</div>
@@ -28,7 +35,7 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Address</th>
-                <th>activeCourses</th>
+                <th>Active courses Id</th>
                 <th>Buttons</th>
 
             </tr>
@@ -42,7 +49,7 @@
                     <td>@user.Email</td>
                     <td>@user.Phone</td>
                     <td>@user.Address</td>
-                    <td>@*@user.ActiveCourses*@
+                    <td>
                         @foreach (var course in @user.ActiveCourses)
                         {
                             <p>@course.Id</p>
@@ -53,7 +60,6 @@
                             <input type="hidden" value="@user.Email" asp-for="UserEmail"/>
                             <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
                         </form>
-                        <button class="btn btn-primary">Edit</button>
                     </td>
                 </tr>
             }
