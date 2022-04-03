@@ -1,0 +1,78 @@
+﻿@page
+@using System.ComponentModel
+@using System.Linq
+@using Labb2API.Backend.Controllers
+@using Labb2API.Backend.DAL.Models
+@model Labb2API.Pages.CoursesModel
+@{
+    ViewData["Title"] = "Courses";
+    var fetchString = "/controller/courses/";
+}
+
+<div class="text-center">
+    <form method="get" class="mt-3">
+        <button type="submit" class="btn btn-primary">Get all courses</button>
+    </form>
+    <form method="post" class="mt-3">
+        <input type="text" value="" asp-for="CourseId"/>
+        <button type="submit" asp-page-handler="One" class="btn btn-primary">Search</button>
+    </form>
+    <div class="mt-3 mb-3">
+        <a class="btn btn-primary" asp-area="" asp-page="/CreateCourse">Create Courses</a>
+        <a class="btn btn-primary ms-3" asp-area="" asp-page="/EditUser">Edit Courses</a>
+    </div>
+
+    @if (@Model.Courses.Count <= 0)
+{
+    <div>Vad ska jag lära mig nu då..?</div>
+}
+else
+{
+    <table id="UserTable" class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Difficulty</th>
+            <th>Status</th>
+            <th>Buttons</th>
+        </tr>
+        </thead>
+        
+        @foreach (var course in @Model.Courses)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.Title</td>
+                <td>@course.Description</td>
+                <td>@course.Duration</td>
+                <td>@course.Difficulty</td>
+                <td>@course.Status
+                    <form method="post">
+                        <input type="hidden" value="@course.Id" asp-for="CourseId"/>
+                        
+                        @if (course.Status)
+                        {
+                            <input type="hidden" value="False" asp-for="CourseStatus"/>
+                            <button type="submit" asp-page-handler="ChangeStatus" class="btn btn-success">Active</button>
+                        }
+                        else
+                        {
+                            <input type="hidden" value="True" asp-for="CourseStatus"/>
+                            <button type="submit" asp-page-handler="ChangeStatus" class="btn btn-danger">Inactive</button>
+                        }
+                    </form></td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" value="@course.Id" asp-for="CourseId"/>
+                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                    </form>
+                    <button class="btn btn-primary">Edit</button>
+                </td>
+            </tr>
+        }
+    </table>
+}
+</div>
