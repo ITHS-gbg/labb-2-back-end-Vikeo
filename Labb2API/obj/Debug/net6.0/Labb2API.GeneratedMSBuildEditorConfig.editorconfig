@@ -8,61 +8,61 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Labb2API
 build_property.RootNamespace = Labb2API
-build_property.ProjectDir = C:\Users\Vikeo\Source\Repos\labb-2-back-end-Vikeo\Labb2API\
+build_property.ProjectDir = C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Vikeo\Source\Repos\labb-2-back-end-Vikeo\Labb2API
+build_property.MSBuildProjectDirectory = C:\Users\vikto\Documents\GitHub Local Desktop\labb-2-back-end-Vikeo\Labb2API
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/Courses.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/Courses.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/CreateCourse.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/CreateCourse.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlQ291cnNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/CreateUser.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/CreateUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlVXNlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/EditCourse.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/EditCourse.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdENvdXJzZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/EditUser.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/EditUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdFVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/Error.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/Index.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/Privacy.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/Users.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/Users.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/_ViewImports.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/_ViewStart.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vikeo/Source/Repos/labb-2-back-end-Vikeo/Labb2API/Pages/Shared/_Layout.cshtml]
+[C:/Users/vikto/Documents/GitHub Local Desktop/labb-2-back-end-Vikeo/Labb2API/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-zloyg96q1r
