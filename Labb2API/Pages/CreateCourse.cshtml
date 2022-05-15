@@ -1,0 +1,35 @@
+﻿@page
+@model Labb2API.Pages.CreateCourseModel
+@{
+}
+
+<form method="post">
+    <div class="form-group">
+        
+        <label asp-for="Course.Title">Title</label>
+        <input type="text" class="form-control form-text" asp-for="Course.Title">
+
+        <label asp-for="Course.Description">Description</label>
+        <input type="text" class="form-control form-text" asp-for="Course.Description">
+
+        <label asp-for="Course.Duration">Duration</label>
+        <input type="number" min="0" class="form-control" asp-for="Course.Duration">
+
+        <label asp-for="Course.Difficulty">Difficulty</label>
+        <select id="courseDifficulty" class="form-control form-select" asp-for="Course.Difficulty">
+            <option value="1">Beginner</option>
+            <option value="2">Intermediate</option>
+            <option value="3">Advanced</option>
+        </select>
+
+        <label asp-for="Course.Status">Status</label>
+        <select id="courseStatus" class="form-control form-select" asp-for="Course.Status">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    <a class="btn btn-danger mt-3" asp-area="" asp-page="/Courses">Go back</a>
+
+
+</form>

@@ -1,0 +1,13 @@
+ENDPOINT,HTTP Method,Request Body,Response Body,Query params,Response Codes,Description
+../courses,POST,Course object,,,"Ok, Bad Request, Conflict",Creates a course.
+../courses/{courseId},PATCH,,Course Object (?),"CourseId, CourseTitle, CourseDescription, CourseLength, CourseDifficulty, CourseStatus","Ok, Not Found, Bad Request","If can use multiple params, replace all data in a current course object with new data."
+../courses/{courseId},PATCH,,Course Object (?),CourseStatus,"Ok, Not Found, Bad Request",Replace Status data on existing course object.
+../courses,GET,,All course objects,,"Ok, Not Found",Gets a list of all courses.
+../courses/{courseId},GET,,One course object,,"Ok, Not Found",Gets a course.
+../courses/{courseId},DELETE,,,,"Ok, Not Found",Deletes a course.
+../courses/{courseId},PUT,Course object,,,"Ok, Not Found",Replaces a course with a new course object.
+../users,GET,,All user objects,,"Ok, Not Found",Gets a list of all users.
+../users/{userEmail},POST,User object,,,"Ok, Bad Request, Conflict",Creates a users.
+../users/{userEmail},PATCH,,User Object(?),"userEmail, userFirstname, userLastname, userPhone, userAdress","Ok, Not Found, Conflict",Replaces all data in a existing user object with new data.
+../users/{userEmail},GET,,One User Object,,"Ok, Not Found",Gets a users.
+../users/activeCourses/{userEmail},PATCH,,User Object,"course","Ok, Not Found, Conflict",Add/Remove courses.
